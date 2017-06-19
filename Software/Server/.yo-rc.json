@@ -1,0 +1,16 @@
+{
+  "generator-ng-fullstack": {
+    "appName": "ticketManagement",
+    "username": "krishnateja.gopidinni",
+    "userEmail": "krishnateja.gopidinni@india.semanticbits.com",
+    "stack": "server",
+    "repoHostUrl": "github.com",
+    "userNameSpace": "krishnateja.gopidinni",
+    "client": "",
+    "server": "node",
+    "nodeWebFrameworkServer": "express",
+    "transpilerServer": "babel",
+    "secure": true,
+    "testsSeparated": true
+  }
+}
