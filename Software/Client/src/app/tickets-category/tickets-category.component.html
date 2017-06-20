@@ -1,0 +1,264 @@
+
+<div class="row">
+  <div class="col-md-12 text-center">
+    <div class="row">
+      <div class="col-md-2"></div>
+      <div class="col-md-2 type-div">
+        <label  >Type</label><br>
+        <select name="deviceType" class="form-control" [(ngModel)]="deviceType">
+          <option value="Mobile">Mobile</option>
+          <option value="Laptop">Laptop</option>
+        </select>
+      </div>
+      <div class="col-md-4">
+        <h3>Select Category</h3>
+
+        <ng-select [allowClear]="true"
+                   [items]="categoryList"
+                   [disabled]="disabled"
+                   (data)="refreshValue($event)"
+                   (selected)="selected($event)"
+                   (removed)="removed($event)"
+                   (typed)="typed($event)"
+                   placeholder="No Category selected">
+        </ng-select>
+        <button type="btn" class="btn btn-danger" (click)="DisplayTable(deviceType,selectedValue)" >Search Tickets</button>
+      </div>
+      <div class="pull-left div-val" >
+        <button type="btn" class="btn btn-primary" (click)="CreateTicket()" >Create Tickets</button>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+<section class="success" >
+  <div class="container">
+    <table class="table table-striped" [mfData]="filterCatagory" #mf="mfDataTable" [mfRowsOnPage]="5">
+      <thead>
+      <tr>
+        <th style="width: 10%">
+          <mfDefaultSorter by="S.No">Ticket Id</mfDefaultSorter>
+        </th>
+        <th style="width: 10%">
+          <mfDefaultSorter by="name">Ticket Name</mfDefaultSorter>
+        </th>
+        <th style="width: 10%">
+          <mfDefaultSorter by="Status">Status</mfDefaultSorter>
+        </th>
+        <th style="width: 10%">
+          <mfDefaultSorter by="priority">Prority</mfDefaultSorter>
+        </th>
+        <th style="width: 10%">
+          <mfDefaultSorter by="Actions">Actions</mfDefaultSorter>
+        </th>
+      </tr>
+      </thead>
+      <tbody >
+      <tr *ngFor="let item of this.filterCatagory;let position=index" >
+        <td bgcolor="#6495ed">{{item.Ticket_No}}</td>
+        <td bgcolor="#6495ed">{{item.name}}</td>
+        <td bgcolor="#6495ed" >
+          {{item.Status}}
+        </td>
+        <td bgcolor="#6495ed">{{item.priority}}</td>
+
+
+        <td>
+          <button type="button" class="btn btn-default btn-sm" (click)="view(item.Ticket_No)">
+            <span class="glyphicon glyphicon-eye-open"></span>
+          </button>
+          <button type="button" class="btn btn-default btn-sm" (click)="edit(item.Ticket_No,item.Status)">
+            <span class="glyphicon glyphicon-pencil"></span>
+          </button>
+          <button type="button" class="btn btn-default btn-sm" (click)="delete(position,item.Ticket_No)">
+          <span class="glyphicon glyphicon-remove"></span>
+          </button>
+        </td>
+
+      </tr>
+      </tbody>
+      <tbody *ngIf="filterCatagory.length==0">
+      <tr>
+        <td colspan="100" class="text-center">
+          <p>No Tickets are Registered!!!</p>
+        </td>
+      </tr>
+      </tbody>
+
+      <tfoot>
+      <tr>
+        <td colspan="4">
+          <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+        </td>
+      </tr>
+      </tfoot>
+    </table>
+  </div>
+</section>
+
+<!--
+///////////////////////////////////View Modal////////////////////////////////
+-->
+<div bsModal #viewModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-body">
+      <div class="modal-header">
+        <h2 class="modal-title text-center">View Ticket</h2>
+      </div>
+
+        <table class="table">
+          <tbody>
+
+          <tr>
+            <td class="text-primary"><i></i> Ticket No</td>
+            <td>{{viewRecord.Ticket_No}}</td>
+          </tr>
+          <tr>
+            <td class="text-primary"><i></i> Ticket Name</td>
+            <td>{{viewRecord.name}}</td>
+          </tr>
+          <tr>
+            <td class="text-primary"><i></i> Ticket Discription</td>
+            <td>{{viewRecord.Discription}}</td>
+          </tr>
+          <tr>
+            <td class="text-primary"><i></i> Category</td>
+            <td>{{viewRecord.category}}</td>
+          </tr>
+          <tr>
+            <td class="text-primary"><i></i> Type </td>
+            <td>{{viewRecord.type}}</td>
+          </tr>
+          <tr>
+            <td class="text-primary"><i></i> Status</td>
+            <td>{{viewRecord.status}}</td>
+          </tr>
+
+          <tr>
+            <div *ngIf="viewRecord.status=='Open'||viewRecord.status=='Start' ;else login">
+            <wizard >
+              <wizard-step title="Start">
+                <button type="button" nextStep class="btn-default" (click)="start(viewRecord.status,viewRecord.Ticket_No)">Open</button>
+              </wizard-step>
+              <wizard-step title="Process" >
+                <button type="button" nextStep class="btn-success" (click)=" proces(viewRecord.Ticket_No)">Process</button>
+              </wizard-step>
+
+            </wizard>
+            </div>
+            <template #login [ngIf]="viewRecord.status=='Process'">
+            <wizard >
+              <wizard-step title="Resolve" >
+                <button type="button" nextStep class="btn-success" (click)=" proces(viewRecord.Ticket_No)">Resolve</button>
+              </wizard-step>
+              <wizard-step title="Close">
+                <button type="button" nextStep class="btn-danger" (click)="resolv(viewRecord.Ticket_No)">Close</button>
+              </wizard-step>
+            </wizard>
+            </template>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<!--
+///////////////////////////////////////Edit Modal////////////////////////////////-->
+<div bsModal #editModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="container">
+          <div class="row">
+              <h1>Edit Ticket #{{editedTicket}}</h1>
+            <button type="button" class="close pull-right" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <form class="form-horizontal"  #form="ngForm" >
+
+              <div class="form-group">
+                <div class="col-sm-6">
+                  <label >Type</label><br>
+                  <input type="text" class="form-control"  disabled name="editTicketType"  required placeholder="{{editTicketType}}"  >
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="col-sm-6">
+                  <label >Category:</label><br>
+                  <select class="form-control" name="category" [(ngModel)]="editCategory">
+                    <option value="Spare Parts">Spare Parts</option>
+                    <option value="Manufacture Defect">Manufacture Defect</option>
+                    <option value="Parts Replacement">Parts Replacement</option>
+                    <option value="Battery Leakage">Battery Leakage</option>
+                    <option value="Charger Defect">Charger Defect</option>
+                    <option value="Warrenty Extension">Warrenty Extension</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-6">
+                  <label >Name</label>
+                  <input type="text" class="form-control" minlength="6"  placeholder="Name" name="editName" minlength="6" [(ngModel)]="editName"  >
+                  <span *ngIf="(editName&& editName.length)<6">Minimum Length is 7 </span>
+                </div>
+              </div>
+
+              <div class="form-group">
+
+                <div class="col-sm-6">
+                  <label >Discription</label>
+                  <textarea  class="form-control"  name="editDiscription"  required placeholder="Discription" [(ngModel)]="editDiscription" minlength="15"></textarea>
+                  <span *ngIf="(editDiscription&& editDiscription.length)<15">Minimum Lenght is 15 </span>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-6">
+                  <label >Priorty</label><br>
+                  <select class="form-control" name="priority" [(ngModel)]="editProirty">
+                    <option value="High">High</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Low">Low</option>
+                  </select>
+                </div>
+              </div>
+
+              <div  class="col-sm-6"  >
+                <button  type="button" id="btnsave" class="btn btn-success"(click)="UpdatedRecord(editedTicket,this.editCategory)" [disabled]="((editDiscription && editDiscription.length)<15) || ((editName && editName.length)<6)" >Save</button>
+                <button type="btn" class="btn btn-danger" (click)="NoUpdate()" >Close</button>
+              </div>
+
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--
+///////////////////////////////deleteModal/////////////////////////////-->
+<div bsModal #deleteModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="container">
+          <div class="row">
+            <button type="button" class="close pull-right" aria-label="Close" >
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <p>Do You Want To Delete Ticket Id:- #{{deleteKey}}</p>
+            <div  class="col-sm-6">
+              <button type="btn" class="btn btn-primary" (click)="deleteconformation(deleteIndex,deleteKey)" >Yes</button>
+              <button type="btn" class="btn btn-danger"  (click)="notconformation()">No</button>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
