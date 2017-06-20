@@ -34,24 +34,15 @@ module.exports = {
       },
       CreatedUser: {
         type: Sequelize.INTEGER,
-        references: {
-          model: "users",
-          key: "id"
-        }
+
       },
       AssignedByUSer: {
         type: Sequelize.INTEGER,
-        references: {
-          model: "users",
-          key: "id"
-        }
+
       },
       AssignedToUser: {
         type: Sequelize.INTEGER,
-        references: {
-          model: "users",
-          key: "id"
-        }
+
       },
       createdAt: {
         allowNull: false,

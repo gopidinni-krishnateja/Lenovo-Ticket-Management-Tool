@@ -23,10 +23,7 @@ module.exports = {
 
 
       },
-      startDate: {
-        type:Sequelize.DATE,
-        timeStamp:false,
-      },
+
 
       email: {
         type:Sequelize.STRING

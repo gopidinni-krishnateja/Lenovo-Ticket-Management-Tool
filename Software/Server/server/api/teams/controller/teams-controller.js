@@ -1,7 +1,7 @@
 import teamsDAO from '../dao/teams-dao';
 
 export default class teamsController {
-<<<<<<< HEAD
+
   static createNew(req, res) {
     const _reqBody = req.body;
     teamsDAO.createNew(_reqBody, res)
@@ -48,15 +48,15 @@ export default class teamsController {
   }
 
 
-  static getById(req,res){
+  static getById(req,res) {
     let _id = req.params.id;
     console.log('in Controller');
     teamsDAO.getById(_id)
-      .then((users)=>{
+      .then((users) => {
         res.status(200).json(teams).send(teams);
       })
-      .catch((error=>res.json(error)))
-=======
+      .catch((error => res.json(error)))
+  }
   static getAll(req, res) {
     teamsDAO
       .getAll()
@@ -80,6 +80,6 @@ export default class teamsController {
       .removeById(_id)
       .then(() => res.status(200).end())
       .catch(error => res.status(400).json(error));
->>>>>>> develop
+
   }
 }

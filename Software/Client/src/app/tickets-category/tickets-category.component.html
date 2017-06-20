@@ -2,7 +2,12 @@
 <div class="row">
   <div class="col-md-12 text-center">
     <div class="row">
-      <div class="col-md-2"></div>
+      <div class="col-md-2">
+        <div class="pull-right div-value" >
+          <button type="btn" class="btn btn-primary"  (click)="viewUsers()" >View Users</button>
+
+        </div>
+      </div>
       <div class="col-md-2 type-div">
         <label  >Type</label><br>
         <select name="deviceType" class="form-control" [(ngModel)]="deviceType">
@@ -28,6 +33,12 @@
         <button type="btn" class="btn btn-primary" (click)="CreateTicket()" >Create Tickets</button>
 
       </div>
+      <div class="pull-right div-value" >
+        <button type="btn" class="btn btn-primary" (click)="NewUser()"  >New User</button>
+
+      </div>
+
+
     </div>
 
   </div>
@@ -262,3 +273,4 @@
     </div>
   </div>
 </div>
+

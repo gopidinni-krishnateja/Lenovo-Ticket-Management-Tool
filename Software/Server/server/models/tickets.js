@@ -6,6 +6,9 @@ module.exports = function(sequelize, DataTypes) {
   var tickets = sequelize.define('tickets', {
     ticketName: DataTypes.STRING,
     ticketDiscription: DataTypes.STRING,
+    CreatedUser:DataTypes.INTEGER,
+    AssignedByUSer:DataTypes.INTEGER,
+    AssignedToUser:DataTypes.INTEGER,
     ticketCategory: {
       type: DataTypes.ENUM,
       values: ticketCategory.values,
@@ -25,14 +28,8 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     classMethods: {
       associate: function(models) {
-        tickets.hasMany(models.users,{
-          foreignKey:{
-            CreatedUser:"id",
-            AssignedByUser:"id",
-            AssignedToUser:"id",
-          },
-          onDelete: "CASCADE"
-        })
+        tickets.hasMany(models.users)
+
       }
     }
   });

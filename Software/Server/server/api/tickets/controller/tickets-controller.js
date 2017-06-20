@@ -6,11 +6,7 @@ export default class ticketsController {
     ticketsDAO.createNew(_reqBody, res)
       .then(tickets => {
         res.status(201)
-<<<<<<< HEAD
-          .json( tickets).send(tickets);
-=======
-          .json(new SuccessResponse(models.tickets.ticketName, models.tickets.ticketDiscription, models.tickets.ticketCategory, models.tickets.ticketPriorty, models.tickets.CreatedUser, models.tickets.AssignedByUser, models.tickets.AssignedToUser, tickets));
->>>>>>> develop
+          .json( tickets).send(tickets)
       })
       .catch(error => {
       });
@@ -22,11 +18,7 @@ export default class ticketsController {
     ticketsDAO.update(_reqBody, res)
       .then(tickets => {
         res.status(201)
-<<<<<<< HEAD
           .json(tickets).send(tickets);
-=======
-          .json(new SuccessResponse(models.tickets.ticketName, models.tickets.ticketDiscription, models.tickets.ticketCategory, models.tickets.ticketPriorty, models.tickets.CreatedUser, models.tickets.AssignedByUser, models.tickets.AssignedToUser, tickets));
->>>>>>> develop
       })
       .catch(error => {
         if (error === 404) {
@@ -49,12 +41,12 @@ export default class ticketsController {
 
   static getAll(req, res) {
     const _query = req.query;
-<<<<<<< HEAD
+
     ticketsDAO.getAll(_query)
       .then(tickets => {
         res.status(200).json(tickets).send(tickets);
       })
-=======
+
     ticketsDAO
       .getAll(_query)
       .then(result => {
@@ -65,7 +57,7 @@ export default class ticketsController {
         }));
       })
       .catch(error => res.status(400).json(error));
->>>>>>> develop
+
   }
 }
 

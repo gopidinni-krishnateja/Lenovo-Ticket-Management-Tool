@@ -2,13 +2,10 @@ import usersController from '../controller/users-controller';
 
 export default class usersRoutes {
   static init(router) {
+    console.log("in router")
     router
       .route('/api/users')
       .get(usersController.getAll)
-<<<<<<< HEAD
-=======
-      .put(usersController.update)
->>>>>>> develop
       .post(usersController.createNew);
 
 
@@ -17,9 +14,8 @@ export default class usersRoutes {
       .route('/api/users/:id')
       .delete(usersController.removeById)
       .get(usersController.getById)
-<<<<<<< HEAD
+
       .put(usersController.update)
-=======
->>>>>>> develop
+
   }
 }

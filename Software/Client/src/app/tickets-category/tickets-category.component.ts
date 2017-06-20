@@ -2,14 +2,15 @@ import { Component, OnInit,ViewChild } from '@angular/core';
 
 import {ModalDirective} from "ngx-bootstrap";
 import { NgbModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-
+import {userService} from "../users/user.service";
+import {QueryApi} from "../common/request/QueryApi";
 import {Router, Routes} from "@angular/router";
 
 @Component({
   selector: 'app-tickets-category',
   templateUrl: './tickets-category.component.html',
   styleUrls: ['./tickets-category.component.css'],
-
+  providers: [ userService, QueryApi]
 })
 export class TicketsCategoryComponent  {
 
@@ -37,9 +38,9 @@ export class TicketsCategoryComponent  {
   public btn_1Id=0;
   public btn_2Id=0;
   public btn_3Id=0;
-  public viewRecordArray=[]
+  public viewUsersDetails=[]
 
-  constructor(private model:NgbModal,private router: Router)
+  constructor(private model:NgbModal,private router: Router,private userService:userService)
   {
 
     let categories=localStorage.getItem("categories");
@@ -253,6 +254,10 @@ export class TicketsCategoryComponent  {
 
     }
   }
+  NewUser()
+  {
+    this.router.navigateByUrl('/users')
+  }
   proces(Ticket)
   {
     this.viewRecord.status="Resolve"
@@ -302,6 +307,7 @@ export class TicketsCategoryComponent  {
     })
     this.viewModal.hide()
   }
+  
 
 
 }

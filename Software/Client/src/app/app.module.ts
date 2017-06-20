@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-<<<<<<< HEAD
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { LocalStorageModule } from 'angular-2-local-storage';
@@ -14,12 +13,14 @@ import { ModalModule } from 'ngx-bootstrap';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { ViewTicketComponent } from './view-ticket/view-ticket.component';
 import { WizardModule } from 'ng2-archwizard';
+import { UsersComponent } from './users/users.component';
 @NgModule( {
   declarations: [
     AppComponent,
     TicketsCategoryComponent,
     CreateTicketComponent,
     ViewTicketComponent,
+    UsersComponent,
 
   ],
   imports: [
@@ -36,18 +37,6 @@ import { WizardModule } from 'ng2-archwizard';
     WizardModule
   ],
   entryComponents : [ViewTicketComponent],
-=======
-
-import { AppComponent } from './app.component';
-
-@NgModule({
-  declarations: [
-    AppComponent
-  ],
-  imports: [
-    BrowserModule
-  ],
->>>>>>> develop
   providers: [],
   bootstrap: [AppComponent]
 })
