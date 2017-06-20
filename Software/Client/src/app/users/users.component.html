@@ -1,0 +1,85 @@
+
+<form class="form-horizontal" novalidate #f="ngForm">
+  <fieldset>
+
+    <!-- Form Name -->
+    <h1>Registration Form</h1>
+    <!-- Text input-->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="1">First Name</label>
+      <div class="col-md-4">
+        <input id="1" name="1" type="text"  class="form-control input-md"  name="firstName"  ngModel #firstName="ngModel" minlength="6" required placeholder="First Name">
+        <div *ngIf="firstName.errors?.required && firstName.touched" class="error">
+          First Name is required
+        </div>
+        <div *ngIf="firstName.errors?.minlength && firstName.touched" class="error">
+          Minimum of 6 characters
+        </div>
+      </div>
+    </div>
+
+    <!-- Text input-->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="2">Last Name</label>
+      <div class="col-md-4">
+        <input id="2" name="2" type="text"  class="form-control input-md"  name="lastName"  ngModel #lastName="ngModel" minlength="6" required placeholder="Last Name">
+        <div *ngIf="lastName.errors?.required && lastName.touched" class="error">
+          Last Name is required
+        </div>
+        <div *ngIf="lastName.errors?.minlength && lastName.touched" class="error">
+          Minimum of 6 characters
+        </div>
+      </div>
+    </div>
+
+    <!-- Text input-->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="3">Dob</label>
+      <div class="col-md-4">
+        <input id="3" name="3" type="date" placeholder="" class="form-control input-md"  name="dob"  ngModel #dob="ngModel" minlength="6" required placeholder="Last Name">
+        <div *ngIf="dob.errors?.required && dob.touched" class="error">
+          Date of Birth is required
+        </div>
+      </div>
+    </div>
+    <!-- Text input-->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="3">Email Id</label>
+      <div class="col-md-4">
+        <input  name="3" type="email" placeholder="" class="form-control input-md"  name="email"  ngModel #email="ngModel" minlength="6" required placeholder="Email Id">
+        <div *ngIf="email.errors?.required && email.touched" class="error">
+          Email Name is required
+        </div>
+        <div *ngIf="email.errors?.minlength && email.touched" class="error">
+          Minimum of 6 characters
+        </div>
+      </div>
+    </div>
+
+    <!-- Password input-->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="5">Enter Password </label>
+      <div class="col-md-4">
+        <input id="5" name="5" type="password" placeholder="" class="form-control input-md"  name="password"  ngModel #password="ngModel" minlength="6" required placeholder="password">
+        <div *ngIf="password.errors?.required && password.touched" class="error">
+          Password Name is required
+        </div>
+        <div *ngIf="password.errors?.minlength && password.touched" class="error">
+          Minimum of 6 characters
+        </div>
+      </div>
+    </div>
+
+
+
+    <!-- Button (Double) -->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="1"></label>
+      <div class="col-md-8">
+        <button name="1" class="btn btn-success" (click)="f.reset();"  [disabled]="f.invalid">Save</button>
+        <button name="2" class="btn btn-danger">Discard</button>
+      </div>
+    </div>
+
+  </fieldset>
+</form>

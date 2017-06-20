@@ -21,7 +21,11 @@ export default class usersController {
     usersDAO.update(_reqBody, res)
       .then(users => {
         res.status(201)
+<<<<<<< HEAD
           .json(users).send(users);
+=======
+          .json(new SuccessResponse(models.users.firstName, models.users.lastName, models.users.email, models.users.password, models.users.startDate, models.users.endDate, models.users.userType, models.users.dob, users));
+>>>>>>> develop
       })
       .catch(error => {
         if (error === 404) {
@@ -51,9 +55,21 @@ export default class usersController {
   static getById(req,res){
     let _id = req.params.id;
     console.log('in Controller');
+<<<<<<< HEAD
     usersDAO.getById(_id)
       .then((users)=>{
         res.status(200).json(users).send(users);
+=======
+    usersDAO
+      .getById(_id).then((users)=>{
+      if(users){
+        res.status(200).json(users).send(users);
+      }
+      else{
+        res.sent('Data not Found');
+        return res.status(404);
+      }
+>>>>>>> develop
     })
       .catch((error=>res.json(error)))
   }

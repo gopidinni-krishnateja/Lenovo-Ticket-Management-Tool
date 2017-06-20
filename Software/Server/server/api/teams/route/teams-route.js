@@ -9,8 +9,12 @@ export default class teamsRoutes {
 
     router
       .route('/api/teams/:id')
+<<<<<<< HEAD
       .delete(teamsController.removeById)
       .get(teamsController.getById)
       .put(teamsController.update)
+=======
+      .delete(teamsController.removeById);
+>>>>>>> develop
   }
 }

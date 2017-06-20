@@ -5,6 +5,10 @@ export default class usersRoutes {
     router
       .route('/api/users')
       .get(usersController.getAll)
+<<<<<<< HEAD
+=======
+      .put(usersController.update)
+>>>>>>> develop
       .post(usersController.createNew);
 
 
@@ -13,6 +17,9 @@ export default class usersRoutes {
       .route('/api/users/:id')
       .delete(usersController.removeById)
       .get(usersController.getById)
+<<<<<<< HEAD
       .put(usersController.update)
+=======
+>>>>>>> develop
   }
 }

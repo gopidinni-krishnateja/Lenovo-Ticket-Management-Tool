@@ -17,6 +17,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       dob:{
+
         type:Sequelize.DATE,
         timeStamp:false,
 
@@ -26,11 +27,7 @@ module.exports = {
         type:Sequelize.DATE,
         timeStamp:false,
       },
-      endDate : {
-        type:Sequelize.DATE,
-        timeStamp:false,
 
-      },
       email: {
         type:Sequelize.STRING
       },

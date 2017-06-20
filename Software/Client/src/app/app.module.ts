@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+<<<<<<< HEAD
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { LocalStorageModule } from 'angular-2-local-storage';
@@ -35,6 +36,18 @@ import { WizardModule } from 'ng2-archwizard';
     WizardModule
   ],
   entryComponents : [ViewTicketComponent],
+=======
+
+import { AppComponent } from './app.component';
+
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule
+  ],
+>>>>>>> develop
   providers: [],
   bootstrap: [AppComponent]
 })
