@@ -22,14 +22,9 @@ export class UsersComponent  {
       console.log(response)
     });
   }
-  getUsers=():any=>{
 
 
-    this.userService.get().subscribe((response) => {
-      this.data = response.body
-    })
 
 
-  }
 
 }

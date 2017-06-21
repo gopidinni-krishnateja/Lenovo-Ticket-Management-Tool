@@ -52,8 +52,7 @@ export default class usersController {
   }
   static getById(req,res){
     let _id = req.params.id;
-    console.log('in Controller');
-    usersDAO.getById(_id)
+    usersDAO.getById(req.params.id)
       .then((users)=>{
         res.status(200).json(users).send(users);
       })

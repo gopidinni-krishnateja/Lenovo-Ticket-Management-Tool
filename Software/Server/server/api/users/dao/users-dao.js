@@ -79,10 +79,9 @@ export  default class userDAO
   }
   static getById(_id) {
     return new Promise((resolve, reject) => {
-      console.log('getById Dao')
-      models.users.findAll({
-        attributes:['id','firstName','lastName','dob','email','startDate'],
-        where:[{userType:_id}]
+      console.log(_id)
+      models.users.findOne({
+        where: {email:_id},
       }).then((users) => {
         console.log(users)
         resolve(users)

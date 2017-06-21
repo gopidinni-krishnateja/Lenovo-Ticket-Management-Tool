@@ -21,7 +21,7 @@ export class CreateTicketComponent implements OnInit {
   public userdata
   constructor(private router: Router,usercomponent:UsersComponent)
   {
-    this.userdata=usercomponent.getUsers();
+
     console.log(this.userdata)
   }
 

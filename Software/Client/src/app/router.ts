@@ -6,10 +6,12 @@ import {Routes,RouterModule} from '@angular/router';
 import {TicketsCategoryComponent} from './tickets-category/tickets-category.component';
 import {CreateTicketComponent} from './create-ticket/create-ticket.component';
 import {UsersComponent} from "./users/users.component";
+import {LoginComponent} from "./login/login.component";
 export const router:Routes=[
   {path:'',redirectTo:'home',pathMatch:'full'},
-  {path:'home',component:TicketsCategoryComponent},
   {path:'createticket', component:CreateTicketComponent},
-  {path:'users',component:UsersComponent}
+  {path:'users',component:UsersComponent},
+  {path:'login',component:LoginComponent},
+  {path:'home/:id',component:TicketsCategoryComponent},
 ];
 export const routes:ModuleWithProviders=RouterModule.forRoot(router);

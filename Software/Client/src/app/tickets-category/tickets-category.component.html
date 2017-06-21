@@ -27,7 +27,10 @@
                    (typed)="typed($event)"
                    placeholder="No Category selected">
         </ng-select>
-        <button type="btn" class="btn btn-danger" (click)="DisplayTable(deviceType,selectedValue)" >Search Tickets</button>
+        <button *ngIf="uservalue=='ADMIN'" type="btn" class="btn btn-danger" (click)="DisplayTable(deviceType,selectedValue)" >Search Tickets</button>
+        <button *ngIf="uservalue=='TECHNICAL'" type="btn" class="btn btn-danger" (click)="DisplayTable(deviceType,selectedValue)" >VIEW Tickets</button>
+        <button *ngIf="uservalue=='HELPLINE'" type="btn" class="btn btn-danger" (click)="DisplayTable(deviceType,selectedValue)" >CREATE Tickets</button>
+
       </div>
       <div class="pull-left div-val" >
         <button type="btn" class="btn btn-primary" (click)="CreateTicket()" >Create Tickets</button>

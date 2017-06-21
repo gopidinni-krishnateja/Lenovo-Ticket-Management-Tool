@@ -14,6 +14,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { ViewTicketComponent } from './view-ticket/view-ticket.component';
 import { WizardModule } from 'ng2-archwizard';
 import { UsersComponent } from './users/users.component';
+import { LoginComponent } from './login/login.component';
+import { HeaderComponent } from './header/header.component';
 @NgModule( {
   declarations: [
     AppComponent,
@@ -21,6 +23,8 @@ import { UsersComponent } from './users/users.component';
     CreateTicketComponent,
     ViewTicketComponent,
     UsersComponent,
+    LoginComponent,
+    HeaderComponent,
 
   ],
   imports: [

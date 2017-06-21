@@ -5,15 +5,17 @@ import { NgbModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {userService} from "../users/user.service";
 import {QueryApi} from "../common/request/QueryApi";
 import {Router, Routes} from "@angular/router";
-
+import {LoginComponent} from "../login/login.component";
+import {ActivatedRoute} from "@angular/router";
 @Component({
   selector: 'app-tickets-category',
   templateUrl: './tickets-category.component.html',
   styleUrls: ['./tickets-category.component.css'],
   providers: [ userService, QueryApi]
 })
-export class TicketsCategoryComponent  {
-
+export class TicketsCategoryComponent implements OnInit{
+  public uservalue
+  //
   public ticketArray;
   public categoryList=[];
   public filterCatagory=[];
@@ -40,7 +42,7 @@ export class TicketsCategoryComponent  {
   public btn_3Id=0;
   public viewUsersDetails=[]
 
-  constructor(private model:NgbModal,private router: Router,private userService:userService)
+  constructor(private model:NgbModal,private router: Router,private userService:userService,private routeParams: ActivatedRoute)
   {
 
     let categories=localStorage.getItem("categories");
@@ -48,8 +50,13 @@ export class TicketsCategoryComponent  {
     let  tickets=localStorage.getItem("ticket");
     this.ticketArray=JSON.parse(tickets);
     localStorage.setItem("tempTickets",JSON.stringify(this.ticketArray));
-
+    this.routeParams.params.subscribe(params => {
+      this.uservalue = params.id;
+      console.log('companyId :' + this.uservalue);
+    })
   }
+  ngOnInit(){}
+
 
   @ViewChild('viewModal') public viewModal:ModalDirective;
   @ViewChild('editModal') public editModal:ModalDirective;
@@ -307,7 +314,28 @@ export class TicketsCategoryComponent  {
     })
     this.viewModal.hide()
   }
-  
+//////////////////////////////////////////////////////////////////////////////////////
+  typeUser(value)
+  {
+    alert("in the ticket -> "+value)
+    if(value==1)
+    {
+      this.uservalue="ADMIN";
+      this.router.navigateByUrl("#")
+    }
 
+    else if(value==2)
+    {
+      this.uservalue="TECHNICAL";
+      this.router.navigate(["home",{ queryParams: { page: 2 }}])
+    }
+
+    else if(value==3)
+    {
+      this.uservalue="HELPLINE"
+      this.router.navigateByUrl("#")
+    }
+
+  }
 
 }
