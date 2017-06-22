@@ -9,9 +9,14 @@ import {UsersComponent} from "./users/users.component";
 import {LoginComponent} from "./login/login.component";
 export const router:Routes=[
   {path:'',redirectTo:'home',pathMatch:'full'},
-  {path:'createticket', component:CreateTicketComponent},
+  {path:'createticket/:id', component:CreateTicketComponent},
   {path:'users',component:UsersComponent},
   {path:'login',component:LoginComponent},
-  {path:'home/:id',component:TicketsCategoryComponent},
+  {path:'home',component:TicketsCategoryComponent,
+    children:[
+      {path:'id',component:TicketsCategoryComponent},
+
+    ]
+  },
 ];
 export const routes:ModuleWithProviders=RouterModule.forRoot(router);

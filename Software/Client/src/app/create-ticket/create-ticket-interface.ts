@@ -1,9 +1,11 @@
 export interface Ticket {
-  Ticket_No:string;
-  Type: string;
-  Category:string
-  Name: string;
-  Discription:string
-  Priorty: string;
-  Status:string;
+  ticketName:string,
+  ticketDiscription: string,
+  ticketCategory: string,
+  ticketPriorty: string,
+  ticketStatus: string,
+  ticketType:string,
+  CreatedUser: number,
+  AssignedToUser: number,
+  AssignedByUSer: number
 }

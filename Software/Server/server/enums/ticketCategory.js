@@ -2,12 +2,12 @@
  * Created by darlz on 17-Jun-17.
  */
 const ticketCategory = {
-  "SpareParts": { code: "SpareParts", value: "Spare Parts" },
-  "ManufactureDefect": { code: "ManufactureDefect", value: "Manufacture Defect" },
-  "PartsReplacement": { code: "PartsReplacement", value: "Parts Replacement" },
-  "BatteryLeakage": { code: "BatteryLeakage", value: "Battery Leakage" },
-  "ChargerDefect": { code: "ChargerDefect", value: "Charger Defect" },
-  "WarrentyExtension": { code: "WarrentyExtension", value: "Warrenty Extension" },
+  "SPAREPARTS": { code: "SPAREPARTS", value: "Spare Parts" },
+  "MANUFACTUREDEFECT": { code: "MANUFACTUREDEFECT", value: "Manufacture Defect" },
+  "PARTSREPLACEMENT": { code: "PARTSREPLACEMENT", value: "Parts Replacement" },
+  "BATTERYLEAKAGE": { code: "BATTERYLEAKAGE", value: "Battery Leakage" },
+  "CHARGERDEFECT": { code: "CHARGERDEFECT", value: "Charger Defect" },
+  "WARRENTYEXTENSION": { code: "WARRENTYEXTENSION", value: "Warrenty Extension" },
 };
 
 let ticketCategoryObj = {

@@ -2,6 +2,7 @@
 const ticketCategory=require("../enums/ticketCategory");
 const ticketStatus=require("../enums/ticketStatus");
 const ticketPriorty=require("../enums/ticketPriorty");
+const ticketType=require("../enums/ticketType")
 module.exports = {
   up: function(queryInterface, Sequelize) {
     return queryInterface.createTable('tickets', {
@@ -30,6 +31,11 @@ module.exports = {
       ticketPriorty:{
         type: Sequelize.ENUM,
         values: ticketPriorty.values,
+        allowNull: false
+      },
+      ticketType:{
+        type: Sequelize.ENUM,
+        values: ticketType.values,
         allowNull: false
       },
       CreatedUser: {

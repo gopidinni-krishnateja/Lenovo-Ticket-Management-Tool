@@ -2,6 +2,8 @@
 const ticketCategory=require("../enums/ticketCategory");
 const ticketStatus=require("../enums/ticketStatus");
 const ticketPriorty=require("../enums/ticketPriorty");
+const ticketType=require("../enums/ticketType");
+
 module.exports = function(sequelize, DataTypes) {
   var tickets = sequelize.define('tickets', {
     ticketName: DataTypes.STRING,
@@ -25,10 +27,14 @@ module.exports = function(sequelize, DataTypes) {
       values: ticketPriorty.values,
       allowNull: false
     },
+    ticketType:{
+      type: DataTypes.ENUM,
+      values: ticketType.values,
+      allowNull: false
+    }
   }, {
     classMethods: {
       associate: function(models) {
-        tickets.hasMany(models.users)
 
       }
     }

@@ -78,18 +78,35 @@ export  default class userDAO
     });
   }
   static getById(_id) {
-    return new Promise((resolve, reject) => {
-      console.log(_id)
-      models.users.findOne({
-        where: {email:_id},
-      }).then((users) => {
-        console.log(users)
-        resolve(users)
+    if(_id.includes('@'))
+    {
+      return new Promise((resolve, reject) => {
 
+        models.users.findOne({where: {email: _id}})
+          .then((users) => {
+            console.log(users)
+            resolve(users)
+
+          })
       })
+    }
 
-    })
+    else
+    {
+      return new Promise((resolve, reject) => {
+
+        models.users.findOne({where: {id: _id}})
+          .then((users) => {
+            console.log(users)
+            resolve(users)
+
+          })
+      })
+    }
+
+
   }
+
 
 
 }

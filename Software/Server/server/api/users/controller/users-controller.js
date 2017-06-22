@@ -54,8 +54,7 @@ export default class usersController {
     let _id = req.params.id;
     usersDAO.getById(req.params.id)
       .then((users)=>{
-        res.status(200).json(users).send(users);
+        res.status(200).json(users);
       })
-      .catch((error=>res.json(error)))
   }
 }

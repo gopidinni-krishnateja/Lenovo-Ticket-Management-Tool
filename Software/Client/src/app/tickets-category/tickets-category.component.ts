@@ -14,8 +14,9 @@ import {ActivatedRoute} from "@angular/router";
   providers: [ userService, QueryApi]
 })
 export class TicketsCategoryComponent implements OnInit{
-  public uservalue
-  //
+  public uservalue;
+  public userId
+  ///////////////////
   public ticketArray;
   public categoryList=[];
   public filterCatagory=[];
@@ -40,9 +41,10 @@ export class TicketsCategoryComponent implements OnInit{
   public btn_1Id=0;
   public btn_2Id=0;
   public btn_3Id=0;
-  public viewUsersDetails=[]
-
-  constructor(private model:NgbModal,private router: Router,private userService:userService,private routeParams: ActivatedRoute)
+  public viewUsersDetails=[];
+  sub
+  id
+  constructor(private model:NgbModal,private router: Router,private userService:userService,public _activatedRoute: ActivatedRoute)
   {
 
     let categories=localStorage.getItem("categories");
@@ -50,13 +52,17 @@ export class TicketsCategoryComponent implements OnInit{
     let  tickets=localStorage.getItem("ticket");
     this.ticketArray=JSON.parse(tickets);
     localStorage.setItem("tempTickets",JSON.stringify(this.ticketArray));
-    this.routeParams.params.subscribe(params => {
-      this.uservalue = params.id;
-      console.log('companyId :' + this.uservalue);
-    })
-  }
-  ngOnInit(){}
 
+  }
+  ///////////////////////////////
+  ngOnInit(){
+    this._activatedRoute.params.subscribe(params => {console.log(params)
+      this.typeUser(params)
+    });
+
+
+  }
+/////////////////////////////////////////
 
   @ViewChild('viewModal') public viewModal:ModalDirective;
   @ViewChild('editModal') public editModal:ModalDirective;
@@ -228,10 +234,7 @@ export class TicketsCategoryComponent implements OnInit{
     this.editModal.hide()
   }
 
-  CreateTicket()
-  {
-    this.router.navigateByUrl('/createticket');
-  }
+
   start(status,Ticket)
   {
 
@@ -317,25 +320,36 @@ export class TicketsCategoryComponent implements OnInit{
 //////////////////////////////////////////////////////////////////////////////////////
   typeUser(value)
   {
-    alert("in the ticket -> "+value)
-    if(value==1)
-    {
-      this.uservalue="ADMIN";
-      this.router.navigateByUrl("#")
-    }
+    console.log("in")
+    console.log(value.id)
+    const params =Number(value.id);
+    this.userService.getUser(params).subscribe((response) => {
+      console.log()
+      if(response.userType==="ADMIN")
+      {
+        this.uservalue="ADMIN";
+        this.userId=response.id;
+      }
 
-    else if(value==2)
-    {
-      this.uservalue="TECHNICAL";
-      this.router.navigate(["home",{ queryParams: { page: 2 }}])
-    }
+      else if(response.userType==="TECHNICAL")
+      {
+        this.uservalue="TECHNICAL";
+        this.userId=response.id;
+      }
 
-    else if(value==3)
-    {
-      this.uservalue="HELPLINE"
-      this.router.navigateByUrl("#")
-    }
+      else if(response.userType==="HELPLINE")
+      {
+        this.uservalue="HELPLINE"
+        this.userId=response.id;
+      }
+
+    })
+
 
   }
-
+  CreateTicket(id)
+  {
+    this.router.navigate(['createticket/' +id ]);
+  }
+/////////////////////////////////////////////
 }

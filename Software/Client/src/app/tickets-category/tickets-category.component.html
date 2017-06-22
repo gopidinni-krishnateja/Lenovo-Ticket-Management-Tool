@@ -28,16 +28,11 @@
                    placeholder="No Category selected">
         </ng-select>
         <button *ngIf="uservalue=='ADMIN'" type="btn" class="btn btn-danger" (click)="DisplayTable(deviceType,selectedValue)" >Search Tickets</button>
-        <button *ngIf="uservalue=='TECHNICAL'" type="btn" class="btn btn-danger" (click)="DisplayTable(deviceType,selectedValue)" >VIEW Tickets</button>
-        <button *ngIf="uservalue=='HELPLINE'" type="btn" class="btn btn-danger" (click)="DisplayTable(deviceType,selectedValue)" >CREATE Tickets</button>
+
 
       </div>
       <div class="pull-left div-val" >
-        <button type="btn" class="btn btn-primary" (click)="CreateTicket()" >Create Tickets</button>
-
-      </div>
-      <div class="pull-right div-value" >
-        <button type="btn" class="btn btn-primary" (click)="NewUser()"  >New User</button>
+        <button *ngIf="uservalue=='HELPLINE'" type="btn" class="btn btn-primary" (click)="CreateTicket(userId)" >Create Tickets</button>
 
       </div>
 
