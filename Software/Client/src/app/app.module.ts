@@ -16,6 +16,8 @@ import { WizardModule } from 'ng2-archwizard';
 import { UsersComponent } from './users/users.component';
 import { LoginComponent } from './login/login.component';
 import { HeaderComponent } from './header/header.component';
+import { TeamsComponent } from './teams/teams.component';
+import { EditTicketComponent } from './edit-ticket/edit-ticket.component';
 @NgModule( {
   declarations: [
     AppComponent,
@@ -25,6 +27,8 @@ import { HeaderComponent } from './header/header.component';
     UsersComponent,
     LoginComponent,
     HeaderComponent,
+    TeamsComponent,
+    EditTicketComponent,
 
   ],
   imports: [

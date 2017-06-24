@@ -20,8 +20,7 @@ export class UsersComponent  {
   AddUser=({ value }: { value: User })=> {
       console.log(value)
     this.userService.adduser( value ).subscribe((response) => {
-      console.log(response)
-      this.router.navigate(['home/']);
+      this.router.navigateByUrl('/home');
     });
   }
 

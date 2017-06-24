@@ -19,8 +19,6 @@ export  default class userDAO
         userType:_reqBody.userType,
         dob:_reqBody.dob,
       }).then((users) => {
-        console.log("get")
-        res.send(users)
         resolve(users);
       }, (error) => {
         reject(error);
@@ -68,9 +66,8 @@ export  default class userDAO
     return new Promise((resolve, reject) => {
       console.log(models.users);
       models.users
-        .findAndCountAll({})
+        .findAll({})
         .then(users => {
-
           resolve(users);
         }, (error) => {
           reject(error);

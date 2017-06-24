@@ -51,14 +51,16 @@ export default class ticketsController {
         res.status(200).json(tickets).send(tickets);
       })
 
-    ticketsDAO
-      .getAll(_query)
-      .then(result => {
-        res.status(200);
-        res.status(200).json(tickets).send(tickets);
-      })
-      .catch(error => res.status(400).json(error));
 
+
+  }
+  static getById(req, res) {
+    let _id = req.params.id;
+    console.log(req.params.id)
+    ticketsDAO.getById(req.params.id)
+      .then((tickets)=>{
+        res.status(200).json(tickets);
+      })
   }
 }
 

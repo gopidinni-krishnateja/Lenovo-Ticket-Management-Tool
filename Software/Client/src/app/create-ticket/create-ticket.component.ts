@@ -28,7 +28,7 @@ export class CreateTicketComponent implements OnInit {
 
   ngOnInit()
   {
-    let categories=["Spare Parts","Manufacture Defect","Parts Replacement","Battery Leakage","Charger Defect","Warrenty Extension"];
+
     this._activatedRoute.params.subscribe(params => {console.log(params)
      this.userdata=params.id
       console.log("->"+params.id)

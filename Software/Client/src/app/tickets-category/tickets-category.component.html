@@ -1,18 +1,18 @@
-
+<div *ngIf="this.fla!=3">
 <div class="row">
   <div class="col-md-12 text-center">
     <div class="row">
       <div class="col-md-2">
         <div class="pull-right div-value" >
-          <button type="btn" class="btn btn-primary"  (click)="viewUsers()" >View Users</button>
+
 
         </div>
       </div>
       <div class="col-md-2 type-div">
         <label  >Type</label><br>
         <select name="deviceType" class="form-control" [(ngModel)]="deviceType">
-          <option value="Mobile">Mobile</option>
-          <option value="Laptop">Laptop</option>
+          <option value="MOBILE">Mobile</option>
+          <option value="LAPTOP">Laptop</option>
         </select>
       </div>
       <div class="col-md-4">
@@ -27,13 +27,13 @@
                    (typed)="typed($event)"
                    placeholder="No Category selected">
         </ng-select>
-        <button *ngIf="uservalue=='ADMIN'" type="btn" class="btn btn-danger" (click)="DisplayTable(deviceType,selectedValue)" >Search Tickets</button>
+        <button *ngIf="uservalue=='ADMIN'||uservalue=='TECHNICAL'" type="btn" class="btn btn-danger" (click)="DisplayTable(deviceType,selectedValue)" >Search Tickets</button>
 
 
       </div>
       <div class="pull-left div-val" >
         <button *ngIf="uservalue=='HELPLINE'" type="btn" class="btn btn-primary" (click)="CreateTicket(userId)" >Create Tickets</button>
-
+        <button *ngIf="uservalue=='ADMIN'" type="btn" class="btn btn-primary" (click)="AddTeam()" >ADD TEAMS</button>
       </div>
 
 
@@ -47,16 +47,19 @@
       <thead>
       <tr>
         <th style="width: 10%">
-          <mfDefaultSorter by="S.No">Ticket Id</mfDefaultSorter>
+          <mfDefaultSorter by="id">Ticket Id</mfDefaultSorter>
         </th>
         <th style="width: 10%">
-          <mfDefaultSorter by="name">Ticket Name</mfDefaultSorter>
+          <mfDefaultSorter by="ticketName">Ticket Name</mfDefaultSorter>
         </th>
         <th style="width: 10%">
-          <mfDefaultSorter by="Status">Status</mfDefaultSorter>
+          <mfDefaultSorter by="ticketDiscription">Discription</mfDefaultSorter>
         </th>
         <th style="width: 10%">
-          <mfDefaultSorter by="priority">Prority</mfDefaultSorter>
+          <mfDefaultSorter by="ticketPriorty">Prority</mfDefaultSorter>
+        </th>
+        <th style="width: 10%">
+          <mfDefaultSorter by="ticketStatus">Status</mfDefaultSorter>
         </th>
         <th style="width: 10%">
           <mfDefaultSorter by="Actions">Actions</mfDefaultSorter>
@@ -65,19 +68,17 @@
       </thead>
       <tbody >
       <tr *ngFor="let item of this.filterCatagory;let position=index" >
-        <td bgcolor="#6495ed">{{item.Ticket_No}}</td>
-        <td bgcolor="#6495ed">{{item.name}}</td>
-        <td bgcolor="#6495ed" >
-          {{item.Status}}
-        </td>
-        <td bgcolor="#6495ed">{{item.priority}}</td>
-
+        <td bgcolor="#6495ed">{{item.id}}</td>
+        <td bgcolor="#6495ed">{{item.ticketName}}</td>
+        <td bgcolor="#6495ed" >{{item.ticketDiscription}}</td>
+        <td bgcolor="#6495ed">{{item.ticketStatus}}</td>
+        <td bgcolor="#6495ed">{{item.ticketPriorty}}</td>
 
         <td>
-          <button type="button" class="btn btn-default btn-sm" (click)="view(item.Ticket_No)">
+          <button type="button" class="btn btn-default btn-sm" (click)="view(item.id)">
             <span class="glyphicon glyphicon-eye-open"></span>
           </button>
-          <button type="button" class="btn btn-default btn-sm" (click)="edit(item.Ticket_No,item.Status)">
+          <button type="button"  *ngIf="uservalue=='TECHNICAL'" class="btn btn-default btn-sm" (click)="edit(item.id)">
             <span class="glyphicon glyphicon-pencil"></span>
           </button>
           <button type="button" class="btn btn-default btn-sm" (click)="delete(position,item.Ticket_No)">
@@ -271,4 +272,5 @@
     </div>
   </div>
 </div>
-
+</div>
+<router-outlet></router-outlet>

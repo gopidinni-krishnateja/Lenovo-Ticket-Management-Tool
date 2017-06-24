@@ -72,14 +72,27 @@ export  default class ticketsDAO
     return new Promise((resolve, reject) => {
       console.log(models.tickets);
       models.tickets
-        .findAndCountAll({})
+        .findAll({})
         .then(tickets => {
-          console.log("in users: "+ JSON.stringify(tickets));
+          /*console.log("in users: "+ JSON.stringify(tickets));*/
           resolve(tickets);
         }, (error) => {
           reject(error);
         });
     });
+  }
+  static getById(_id) {
+      return new Promise((resolve, reject) => {
+        models.tickets.findOne({where: {id: _id}})
+          .then((tickets) => {
+            console.log(tickets)
+            resolve(tickets)
+
+          })
+      })
+
+
+
   }
 
 }

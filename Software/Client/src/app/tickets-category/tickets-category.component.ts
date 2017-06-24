@@ -7,15 +7,19 @@ import {QueryApi} from "../common/request/QueryApi";
 import {Router, Routes} from "@angular/router";
 import {LoginComponent} from "../login/login.component";
 import {ActivatedRoute} from "@angular/router";
+import {ticketService} from "../create-ticket/ticket-service";
 @Component({
   selector: 'app-tickets-category',
   templateUrl: './tickets-category.component.html',
   styleUrls: ['./tickets-category.component.css'],
-  providers: [ userService, QueryApi]
+  providers: [ userService, QueryApi,ticketService]
 })
 export class TicketsCategoryComponent implements OnInit{
   public uservalue;
-  public userId
+  public userId;
+  public filterTickets=[];
+  public allTickets
+  public fla=0;
   ///////////////////
   public ticketArray;
   public categoryList=[];
@@ -44,11 +48,15 @@ export class TicketsCategoryComponent implements OnInit{
   public viewUsersDetails=[];
   sub
   id
-  constructor(private model:NgbModal,private router: Router,private userService:userService,public _activatedRoute: ActivatedRoute)
-  {
+  constructor(private model:NgbModal,private router: Router,private userService:userService,public _activatedRoute: ActivatedRoute,
+              public ticketService:ticketService
 
+  )
+
+  {
+    this.fla=4;
     let categories=localStorage.getItem("categories");
-    this.categoryList=JSON.parse(categories);
+    this.categoryList=["SpareParts","ManufactureDefect","PartsReplacement","BatteryLeakage","ChargerDefect","WarrentyExtension"];
     let  tickets=localStorage.getItem("ticket");
     this.ticketArray=JSON.parse(tickets);
     localStorage.setItem("tempTickets",JSON.stringify(this.ticketArray));
@@ -56,10 +64,16 @@ export class TicketsCategoryComponent implements OnInit{
   }
   ///////////////////////////////
   ngOnInit(){
+    this.fla=6;
     this._activatedRoute.params.subscribe(params => {console.log(params)
       this.typeUser(params)
     });
 
+    this.ticketService.get().subscribe((response) => {
+      console.log("in ticket category")
+     this.allTickets=response
+   console.log(this.allTickets)
+    })
 
   }
 /////////////////////////////////////////
@@ -92,18 +106,20 @@ export class TicketsCategoryComponent implements OnInit{
   public DisplayTable(selectedValue,typeofdevice)
   {
     let bool=0
-    console.log(this.ticketArray)
+    console.log(this.allTickets)
     this.filterCatagory= [];
     this.AllRecords= [];
-    this.ticketArray.forEach((EachRecord)=>{
-      if(EachRecord.type===selectedValue && EachRecord.category===typeofdevice)
+    this.allTickets.forEach((EachRecord)=>{
+
+      if(EachRecord.ticketType===selectedValue && EachRecord.ticketCategory===typeofdevice)
       {
-        this.filterCatagory.push(EachRecord);
+       this.filterCatagory.push(EachRecord);
+
       }
+
     })
 
     //console.log(this.filterCatagory)
-    console.log(this.AllRecords)
   }
 
   //View Data Method
@@ -113,16 +129,15 @@ export class TicketsCategoryComponent implements OnInit{
     let bool = true;
     this.filterCatagory.forEach((EachRecord)=>{
       if(bool) {
-        if (EachRecord.Ticket_No == index) {
-          let Category=EachRecord.category
+        if (EachRecord.id === index) {
             this.viewRecord=
             {
-              Discription:EachRecord.Discription,
-              Ticket_No:EachRecord.Ticket_No,
-              category:Category,
-              name:EachRecord.name,
-              status:EachRecord.Status,
-              type:EachRecord.type,
+              Discription:EachRecord.ticketDiscription,
+              Ticket_No:EachRecord.id,
+              category:EachRecord.ticketCategory,
+              name:EachRecord.ticketName,
+              status:EachRecord.ticketStatus,
+              type:EachRecord.ticketType,
             }
           this.checkStatusTicket=index;
             bool=false;
@@ -153,25 +168,10 @@ export class TicketsCategoryComponent implements OnInit{
 
   }
   //Update Data
-  public edit=(index,status)=>
+  public edit=(index)=>
   {
-    let bool = true;
-    console.log(this.filterCatagory)
-    this.filterCatagory.forEach((EachRecord)=>{
-      if(bool) {
-        if (EachRecord.Ticket_No == index) {
-          this.editTicketType = EachRecord.type
-          this.editedTicket=index
-          this.editName=EachRecord.name
-          this.editDiscription=EachRecord.Discription;
-          this.editCategory=EachRecord.category;
-          this.editProirty=EachRecord.priority;
-          this.viewRecord.status=EachRecord.Status;
-          bool=false;
-          this.editModal.show()
-        }
-      }
-    });
+    this.fla=3;
+    this.router.navigate(['/home/edit/',index ]);
   }
   public UpdatedRecord=(index,category) =>{
     let bool = true;
@@ -350,6 +350,10 @@ export class TicketsCategoryComponent implements OnInit{
   CreateTicket(id)
   {
     this.router.navigate(['createticket/' +id ]);
+  }
+  AddTeam()
+  {
+    this.router.navigateByUrl('/teams');
   }
 /////////////////////////////////////////////
 }
