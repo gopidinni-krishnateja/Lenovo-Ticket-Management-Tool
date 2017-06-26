@@ -24,5 +24,13 @@ export class QueryApi {
     url = ClientEndPoint(url, params);
     return this.http.get(url, params );
   }
+  doPut(url: string, params: any) {
+    url = ClientEndPoint(url, params);
+    return this.http.put(url, params);
+  }
+  doDelete(url: string, params: any) {
+    url = ClientEndPoint(url, params);
+    return this.http.delete(url, params);
+  }
 
 }

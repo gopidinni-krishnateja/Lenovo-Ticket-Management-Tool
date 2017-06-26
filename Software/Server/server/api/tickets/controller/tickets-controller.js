@@ -48,7 +48,7 @@ export default class ticketsController {
 
     ticketsDAO.getAll(_query)
       .then(tickets => {
-        res.status(200).json(tickets).send(tickets);
+        res.status(200).json(tickets);
       })
 
 

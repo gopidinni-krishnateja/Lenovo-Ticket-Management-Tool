@@ -10,6 +10,8 @@ export const getusers='getusers'
 export const teams='teams'
 export const ticket='ticket'
 export const getTicket='getTicket'
+export const editTicket='editTicket'
+export const TICKET='TICKET'
 export const ClientEndPoint = (type: string, params: any)=>{
 
 
@@ -30,7 +32,10 @@ export const ClientEndPoint = (type: string, params: any)=>{
     case ticket:
       return environment.API_ROOT + '/api/tickets';
     case getTicket:
-      alert("in Endpoint")
+      return environment.API_ROOT + '/api/tickets/'+params;
+    case editTicket:
+      return environment.API_ROOT + '/api/tickets/' + params.id;
+    case TICKET:
       return environment.API_ROOT + '/api/tickets/'+params;
       //
    /* case tickets:

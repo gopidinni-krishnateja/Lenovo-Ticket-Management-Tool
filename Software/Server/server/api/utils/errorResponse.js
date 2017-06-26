@@ -1,8 +1,19 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var ErrorResponse = (function () {
-    function ErrorResponse() {
+
+export default class ErrorResponse {
+
+    //default constructor
+    constructor(code, message, errors = []) {
+        this.code = code;
+        this.message = message;
+        this.errors = errors;
     }
-    return ErrorResponse;
-}());
-exports.default = ErrorResponse;
+
+    //toJson
+    toJSON() {
+        return {
+            code: this.code,
+            message: this.message,
+            errors: this.errors
+        };
+    }
+}

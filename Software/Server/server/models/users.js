@@ -18,7 +18,12 @@ module.exports = function(sequelize, DataTypes) {
     }
   },
 
-    email:DataTypes.STRING,
+    email:{
+      type:DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+      isEmail: true
+    },
     password:DataTypes.STRING,
     userType: {
       type: DataTypes.ENUM,

@@ -17,9 +17,15 @@ import {ticketService} from "../create-ticket/ticket-service";
 export class TicketsCategoryComponent implements OnInit{
   public uservalue;
   public userId;
-  public filterTickets=[];
+  public filterUsers=[];
   public allTickets
   public fla=0;
+  public users=[]
+  public editTicket
+  public AssignedByUSer
+  public editUser
+  public editId
+  public AssgnedToUser
   ///////////////////
   public ticketArray;
   public categoryList=[];
@@ -55,11 +61,7 @@ export class TicketsCategoryComponent implements OnInit{
 
   {
     this.fla=4;
-    let categories=localStorage.getItem("categories");
     this.categoryList=["SpareParts","ManufactureDefect","PartsReplacement","BatteryLeakage","ChargerDefect","WarrentyExtension"];
-    let  tickets=localStorage.getItem("ticket");
-    this.ticketArray=JSON.parse(tickets);
-    localStorage.setItem("tempTickets",JSON.stringify(this.ticketArray));
 
   }
   ///////////////////////////////
@@ -67,6 +69,7 @@ export class TicketsCategoryComponent implements OnInit{
     this.fla=6;
     this._activatedRoute.params.subscribe(params => {console.log(params)
       this.typeUser(params)
+      this.AssignedByUSer=Number(params.id)
     });
 
     this.ticketService.get().subscribe((response) => {
@@ -74,12 +77,28 @@ export class TicketsCategoryComponent implements OnInit{
      this.allTickets=response
    console.log(this.allTickets)
     })
+    this.userService.get().subscribe((response) => {
+
+     response.forEach((EachRecord)=>{
+
+        if(EachRecord.userType==='TECHNICAL' )
+        {
+          this.users.push(EachRecord.id)
+
+          let user={
+            id:EachRecord.id,
+            name:EachRecord.firstName+" "+EachRecord.lastName
+        }
+          this.filterUsers.push(user)
+        }
+      })
+      console.log(this.filterUsers)
+    })
 
   }
 /////////////////////////////////////////
 
   @ViewChild('viewModal') public viewModal:ModalDirective;
-  @ViewChild('editModal') public editModal:ModalDirective;
   @ViewChild('deleteModal') public deleteModal:ModalDirective;
   private value:any = {};
   private _disabledV:string = '0';
@@ -101,221 +120,6 @@ export class TicketsCategoryComponent implements OnInit{
 
   public refreshValue(value:any):void {
     this.value = value;
-  }
-  //Display Data in Table
-  public DisplayTable(selectedValue,typeofdevice)
-  {
-    let bool=0
-    console.log(this.allTickets)
-    this.filterCatagory= [];
-    this.AllRecords= [];
-    this.allTickets.forEach((EachRecord)=>{
-
-      if(EachRecord.ticketType===selectedValue && EachRecord.ticketCategory===typeofdevice)
-      {
-       this.filterCatagory.push(EachRecord);
-
-      }
-
-    })
-
-    //console.log(this.filterCatagory)
-  }
-
-  //View Data Method
-  public view(index)
-  {
-
-    let bool = true;
-    this.filterCatagory.forEach((EachRecord)=>{
-      if(bool) {
-        if (EachRecord.id === index) {
-            this.viewRecord=
-            {
-              Discription:EachRecord.ticketDiscription,
-              Ticket_No:EachRecord.id,
-              category:EachRecord.ticketCategory,
-              name:EachRecord.ticketName,
-              status:EachRecord.ticketStatus,
-              type:EachRecord.ticketType,
-            }
-          this.checkStatusTicket=index;
-            bool=false;
-        }
-      }
-    });
-    this.btn_1Id=this.btn_1Id+1
-    this.btn_2Id=this.btn_2Id+1
-    this.btn_3Id=this.btn_3Id+1
-    console.log(this.viewRecord);
-    this.viewModal.show();
-     /*const modelRef = this.model.open(ViewTicketComponent,{size: 'lg'});
-     modelRef.componentInstance.viewRecord = this.viewRecord;
-     modelRef.result.then((formData) => {
-       console.log("success");
-     }).catch((failed) => {
-      console.log("failed   ",failed)
-     })
-     console.log(this.viewRecord.Ticket_No)*/
-
-  }
-  //Delete Data
-  public delete=(del_index:any,key)=>{
-
-    this.deleteModal.show()
-    this.deleteIndex=del_index;
-    this.deleteKey=key;
-
-  }
-  //Update Data
-  public edit=(index)=>
-  {
-    this.fla=3;
-    this.router.navigate(['/home/edit/',index ]);
-  }
-  public UpdatedRecord=(index,category) =>{
-    let bool = true;
-    this.editRecord={
-      Ticket_No:this.editedTicket,
-      name:this.editName,
-      category:this.editCategory,
-      Discription:this.editDiscription,
-      type:this.editTicketType,
-      priority:this.editProirty,
-      Status:this.viewRecord.status
-
-    }
-
-  for(let i=0;i<this.filterCatagory.length;i++)
-  {
-    if(this.filterCatagory[i].Ticket_No===index)
-    {
-      this.filterCatagory[i]=this.editRecord;
-    }
-  }
-    for(let i=0;i<this.ticketArray.length;i++)
-    {
-      if(this.ticketArray[i].Ticket_No===index)
-      {
-        this.ticketArray[i]=this.editRecord;
-
-      }
-    }
-
-    this.editTicketName="";
-    this.editProirty="";
-    this.editProirty="";
-    this.editTicketType="";
-    this.editCategory="";
-    this.editModal.hide()
-    console.log(this.ticketArray)
-    this.start(this.viewRecord.status,index)
-  }
-  //Conforming to Delete Record
-  deleteconformation=(del_index:any,key)=>
-  {
-    this.filterCatagory.splice(del_index,1);
-    for(let i=0;i<this.ticketArray.length;i++)
-    {
-      if(this.ticketArray[i].Ticket_No==key)
-      {
-        this.ticketArray.splice(i,1);
-        this.deleteModal.hide()
-        break;
-      }
-    }
-  }
-  notconformation=()=>
-  {
-    this.deleteModal.hide()
-  }
-  NoUpdate()
-  {
-    this.editModal.hide()
-  }
-
-
-  start(status,Ticket)
-  {
-
-    if(status=="Open")
-    {
-      this.viewRecord.status="Start"
-      let bool = true;
-      this.strt=false;
-      this.process=true
-      this.resol=false;
-      this.filterCatagory.forEach((EachRecord)=>{
-        if(bool) {
-          if (EachRecord.Ticket_No== Ticket) {
-            EachRecord.Status=this.viewRecord.status;
-            bool=false;
-          }
-        }
-      })
-      this.ticketArray.forEach((EachRecord)=>{
-        if(bool) {
-          if (EachRecord.Ticket_No== Ticket) {
-            EachRecord.Status=this.viewRecord.status;
-            bool=false;
-          }
-        }
-      })
-
-    }
-  }
-  NewUser()
-  {
-    this.router.navigateByUrl('/users')
-  }
-  proces(Ticket)
-  {
-    this.viewRecord.status="Resolve"
-    let bool = true;
-    this.strt=false
-    this.resol=true;
-    this.process=false
-    this.filterCatagory.forEach((EachRecord)=>{
-      if(bool) {
-        if (EachRecord.Ticket_No== Ticket) {
-          EachRecord.Status=this.viewRecord.status;
-          bool=false;
-        }
-      }
-    })
-    this.ticketArray.forEach((EachRecord)=>{
-      if(bool) {
-        if (EachRecord.Ticket_No== Ticket) {
-          EachRecord.Status=this.viewRecord.status;
-          bool=false;
-        }
-      }
-    })
-
-
-
-  }
-  resolv(Ticket)
-  {
-    this.viewRecord.status="Close"
-    let bool = true;
-    this.filterCatagory.forEach((EachRecord)=>{
-      if(bool) {
-        if (EachRecord.Ticket_No== Ticket) {
-          EachRecord.Status=this.viewRecord.status;
-          bool=false;
-        }
-      }
-    })
-    this.filterCatagory.forEach((EachRecord)=>{
-      if(bool) {
-        if (EachRecord.Ticket_No== Ticket) {
-          EachRecord.Status=this.viewRecord.status;
-          bool=false;
-        }
-      }
-    })
-    this.viewModal.hide()
   }
 //////////////////////////////////////////////////////////////////////////////////////
   typeUser(value)
@@ -355,5 +159,118 @@ export class TicketsCategoryComponent implements OnInit{
   {
     this.router.navigateByUrl('/teams');
   }
+  public edit=(index)=>
+  {
+    this.fla=3;
+    this.router.navigate(['/home/edit/',index ]);
+  }
+  //Display Data in Table
+  public DisplayTable(selectedValue,typeofdevice)
+  {
+    let bool=0
+    console.log(this.allTickets)
+    this.filterCatagory= [];
+    this.AllRecords= [];
+    this.allTickets.forEach((EachRecord)=>{
+
+      if(EachRecord.ticketType===selectedValue && EachRecord.ticketCategory===typeofdevice)
+      {
+        this.filterCatagory.push(EachRecord);
+
+      }
+
+    })
+
+  }
+  //View Data Method
+  public view(index)
+  {
+
+    let bool = true;
+    this.filterCatagory.forEach((EachRecord)=>{
+      if(bool) {
+        if (EachRecord.id === index) {
+          this.viewRecord=
+            {
+              Discription:EachRecord.ticketDiscription,
+              Ticket_No:EachRecord.id,
+              category:EachRecord.ticketCategory,
+              name:EachRecord.ticketName,
+              status:EachRecord.ticketStatus,
+              type:EachRecord.ticketType,
+            }
+          this.checkStatusTicket=index;
+          bool=false;
+        }
+      }
+    });
+    this.btn_1Id=this.btn_1Id+1
+    this.btn_2Id=this.btn_2Id+1
+    this.btn_3Id=this.btn_3Id+1
+    console.log(this.viewRecord);
+    this.viewModal.show();
+    /*const modelRef = this.model.open(ViewTicketComponent,{size: 'lg'});
+     modelRef.componentInstance.viewRecord = this.viewRecord;
+     modelRef.result.then((formData) => {
+     console.log("success");
+     }).catch((failed) => {
+     console.log("failed   ",failed)
+     })
+     console.log(this.viewRecord.Ticket_No)*/
+
+  }
+  public delete=(key,index)=>{
+    this.deleteKey=key
+    this.deleteIndex=index
+    this.deleteModal.show()
+
+
+  }
+  deleteconformation=(key,index)=>
+  {
+    this.filterCatagory.splice(index,1);
+    this.ticketService.deleteTicket(key).subscribe((response) => {
+      this.deleteModal.hide()
+    });
+  }
+  notconformation=()=>
+  {
+    this.deleteModal.hide()
+  }
+  select(user,id)
+  {
+    this.AssgnedToUser=user;
+    this.editId=id;
+  }
+    assignUser(id,name,editId,discription,proirty,status,category,type,createduser,typeTicket,AssgnedToUser)
+  {
+    console.log("id->"+id);
+    console.log("name->"+name);
+    console.log("editId->"+editId);
+    console.log("discription->"+discription);
+    console.log("proirty->"+proirty);
+    console.log("status->"+status);
+    console.log("category->"+category);
+    console.log("type->"+type);
+    console.log("createduser->"+createduser);
+    console.log("AssignedBYUser->"+this.AssignedByUSer)
+
+    this.editTicket={"id":id,
+      "ticketName":name,
+      "ticketDiscription":editId,
+      "ticketCategory":category,
+      "ticketPriorty":proirty,
+      "ticketStatus":discription,
+      "ticketType":typeTicket,
+      "CreatedUser":status,
+      "AssignedToUser":AssgnedToUser,
+      "AssignedByUSer":Number(this.AssignedByUSer)
+    }
+    this.ticketService.editTicket( this.editTicket ).subscribe((response) => {
+    console.log("----------------");
+    console.log(response);
+  });
+}
+
 /////////////////////////////////////////////
 }

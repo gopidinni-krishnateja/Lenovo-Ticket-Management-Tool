@@ -47,4 +47,24 @@ export class ticketService {
         return Observable.throw(error.json().error || 'Server error');
       });
   }
+  editTicket( params ): Observable<any> {
+    return this.queryApi.doPut('editTicket', params)
+      .map((res: Response) => {
+        return res;
+      })
+      .catch((error: any) => {
+        return Observable.throw(error.json());
+      });
+  }
+  deleteTicket(params) {
+    return this.queryApi.doDelete('TICKET', params)
+      .map((res: Response) => {
+        return res;
+      })
+      .catch((error: any) => {
+        return Observable.throw(error.json() || 'Server error');
+      });
+  }
+
+
 }

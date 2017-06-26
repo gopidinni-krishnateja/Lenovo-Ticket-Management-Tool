@@ -38,7 +38,7 @@ export  default class ticketsDAO
           ticketStatus: _reqBody.ticketStatus,
           CreatedUser: _reqBody.CreatedUser,
           AssignedToUser: _reqBody.AssignedToUser,
-          AssignedByUser: _reqBody.AssignedByUser,
+          AssignedByUSer: _reqBody.AssignedByUSer,
           ticketType:_reqBody.ticketType,
         },
         { where: { id: _reqBody.id}, returning: true, plain:true}

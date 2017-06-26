@@ -46,24 +46,25 @@
     <table class="table table-striped" [mfData]="filterCatagory" #mf="mfDataTable" [mfRowsOnPage]="5">
       <thead>
       <tr>
-        <th style="width: 10%">
+        <th style="width: 13.5%">
           <mfDefaultSorter by="id">Ticket Id</mfDefaultSorter>
         </th>
-        <th style="width: 10%">
+        <th style="width: 13.5%">
           <mfDefaultSorter by="ticketName">Ticket Name</mfDefaultSorter>
         </th>
-        <th style="width: 10%">
+        <th style="width: 13.5%">
           <mfDefaultSorter by="ticketDiscription">Discription</mfDefaultSorter>
         </th>
-        <th style="width: 10%">
+        <th style="width: 13.5%">
           <mfDefaultSorter by="ticketPriorty">Prority</mfDefaultSorter>
         </th>
-        <th style="width: 10%">
+        <th style="width: 13.5%">
           <mfDefaultSorter by="ticketStatus">Status</mfDefaultSorter>
         </th>
-        <th style="width: 10%">
+        <th style="width: 13.5%">
           <mfDefaultSorter by="Actions">Actions</mfDefaultSorter>
         </th>
+
       </tr>
       </thead>
       <tbody >
@@ -73,15 +74,20 @@
         <td bgcolor="#6495ed" >{{item.ticketDiscription}}</td>
         <td bgcolor="#6495ed">{{item.ticketStatus}}</td>
         <td bgcolor="#6495ed">{{item.ticketPriorty}}</td>
-
+        <td><select  *ngIf="uservalue=='ADMIN'"  [(ngModel)]="users" (ngModelChange)="select(users,item.id)" >
+          <option *ngFor="let c of filterUsers" [ngValue]="c.id">{{c.name}}</option>
+        </select></td>
         <td>
+          <button type="button"  *ngIf="uservalue=='ADMIN'" class="btn btn-default btn-sm" (click)="assignUser(item.id,item.ticketName,item.ticketDiscription,item.ticketStatus,item.ticketPriorty,item.CreatedUser,item.ticketCategory,editUser,editId,item.ticketType,AssgnedToUser)">
+            <span class="glyphicon glyphicon-pencil"></span>
+          </button>
           <button type="button" class="btn btn-default btn-sm" (click)="view(item.id)">
             <span class="glyphicon glyphicon-eye-open"></span>
           </button>
           <button type="button"  *ngIf="uservalue=='TECHNICAL'" class="btn btn-default btn-sm" (click)="edit(item.id)">
             <span class="glyphicon glyphicon-pencil"></span>
           </button>
-          <button type="button" class="btn btn-default btn-sm" (click)="delete(position,item.Ticket_No)">
+          <button type="button" class="btn btn-default btn-sm" (click)="delete(item.id,position)">
           <span class="glyphicon glyphicon-remove"></span>
           </button>
         </td>
@@ -175,82 +181,8 @@
     </div>
   </div>
 </div>
-<!--
-///////////////////////////////////////Edit Modal////////////////////////////////-->
-<div bsModal #editModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-md">
-    <div class="modal-content">
-      <div class="modal-body">
-        <div class="container">
-          <div class="row">
-              <h1>Edit Ticket #{{editedTicket}}</h1>
-            <button type="button" class="close pull-right" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-            <form class="form-horizontal"  #form="ngForm" >
 
-              <div class="form-group">
-                <div class="col-sm-6">
-                  <label >Type</label><br>
-                  <input type="text" class="form-control"  disabled name="editTicketType"  required placeholder="{{editTicketType}}"  >
-                </div>
-              </div>
-
-              <div class="form-group">
-                <div class="col-sm-6">
-                  <label >Category:</label><br>
-                  <select class="form-control" name="category" [(ngModel)]="editCategory">
-                    <option value="Spare Parts">Spare Parts</option>
-                    <option value="Manufacture Defect">Manufacture Defect</option>
-                    <option value="Parts Replacement">Parts Replacement</option>
-                    <option value="Battery Leakage">Battery Leakage</option>
-                    <option value="Charger Defect">Charger Defect</option>
-                    <option value="Warrenty Extension">Warrenty Extension</option>
-                  </select>
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="col-sm-6">
-                  <label >Name</label>
-                  <input type="text" class="form-control" minlength="6"  placeholder="Name" name="editName" minlength="6" [(ngModel)]="editName"  >
-                  <span *ngIf="(editName&& editName.length)<6">Minimum Length is 7 </span>
-                </div>
-              </div>
-
-              <div class="form-group">
-
-                <div class="col-sm-6">
-                  <label >Discription</label>
-                  <textarea  class="form-control"  name="editDiscription"  required placeholder="Discription" [(ngModel)]="editDiscription" minlength="15"></textarea>
-                  <span *ngIf="(editDiscription&& editDiscription.length)<15">Minimum Lenght is 15 </span>
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="col-sm-6">
-                  <label >Priorty</label><br>
-                  <select class="form-control" name="priority" [(ngModel)]="editProirty">
-                    <option value="High">High</option>
-                    <option value="Medium">Medium</option>
-                    <option value="Low">Low</option>
-                  </select>
-                </div>
-              </div>
-
-              <div  class="col-sm-6"  >
-                <button  type="button" id="btnsave" class="btn btn-success"(click)="UpdatedRecord(editedTicket,this.editCategory)" [disabled]="((editDiscription && editDiscription.length)<15) || ((editName && editName.length)<6)" >Save</button>
-                <button type="btn" class="btn btn-danger" (click)="NoUpdate()" >Close</button>
-              </div>
-
-
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<!--
-///////////////////////////////deleteModal/////////////////////////////-->
+<!--///////////////////////////////deleteModal/////////////////////////////&ndash;&gt;-->
 <div bsModal #deleteModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
@@ -262,7 +194,7 @@
             </button>
             <p>Do You Want To Delete Ticket Id:- #{{deleteKey}}</p>
             <div  class="col-sm-6">
-              <button type="btn" class="btn btn-primary" (click)="deleteconformation(deleteIndex,deleteKey)" >Yes</button>
+              <button type="btn" class="btn btn-primary" (click)="deleteconformation(deleteKey,deleteIndex)" >Yes</button>
               <button type="btn" class="btn btn-danger"  (click)="notconformation()">No</button>
 
             </div>

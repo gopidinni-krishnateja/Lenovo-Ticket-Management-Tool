@@ -1,5 +1,5 @@
 import usersController from '../controller/users-controller';
-
+import userValidator from '../../users/userValidator/user-validator'
 export default class usersRoutes {
   static init(router) {
     console.log("in router")
