@@ -4,7 +4,6 @@ export default class usersController {
   static createNew(req, res) {
     const _reqBody = req.body;
     usersDAO.createNew(_reqBody, res)
-      console.log("get Control")
       .then(users => {
         res.status(201)
           .json(users);

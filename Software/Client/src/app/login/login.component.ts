@@ -8,11 +8,12 @@ import {TicketsCategoryComponent} from "app/tickets-category/tickets-category.co
 import {Router} from "@angular/router";
 import { ActivatedRoute, Params} from '@angular/router'
 import {ticketService} from "../create-ticket/ticket-service";
+import { LocalStorageModule } from 'angular-2-local-storage';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  providers: [ userService,UsersComponent,QueryApi,TicketsCategoryComponent,ticketService]
+  providers: [ userService,UsersComponent,QueryApi,TicketsCategoryComponent,ticketService,]
 
 })
 export class LoginComponent implements OnInit {
@@ -28,20 +29,25 @@ export class LoginComponent implements OnInit {
         if(value.email===  response.email&& value.password=== response.password)
         {
           let type=value.userType
-          alert(type)
+          let id=response.id
           switch (type)
           {
             case ("ADMIN"):
-
+              localStorage.setItem("flag","1");
               this.router.navigate(['home/'  ,{id:response.id}]);
+              window.location.reload()
 
               break;
             case ("TECHNICAL"):
+              localStorage.setItem("flag","1");
               this.router.navigate(['home/' ,{id:response.id}]);
+              window.location.reload()
 
               break;
             case ("HELPLINE"):
+              localStorage.setItem("flag","1");
               this.router.navigate(['home/' , {id:response.id}]);
+              window.location.reload()
 
               break;
           }

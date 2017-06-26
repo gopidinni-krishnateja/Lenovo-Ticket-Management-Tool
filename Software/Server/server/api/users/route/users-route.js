@@ -14,7 +14,6 @@ export default class usersRoutes {
       .route('/api/users/:id')
       .delete(usersController.removeById)
       .get(usersController.getById)
-
       .put(usersController.update)
 
   }

@@ -14,9 +14,6 @@ export const editTicket='editTicket'
 export const TICKET='TICKET'
 export const ClientEndPoint = (type: string, params: any)=>{
 
-
-  console.log(params)
-  alert("type->"+type)
   switch (type) {
     case users:
       alert("in post")
@@ -37,11 +34,6 @@ export const ClientEndPoint = (type: string, params: any)=>{
       return environment.API_ROOT + '/api/tickets/' + params.id;
     case TICKET:
       return environment.API_ROOT + '/api/tickets/'+params;
-      //
-   /* case tickets:
-      return environment.API_ROOT + '/api/tickets';
-    case teams:
-      return environment.API_ROOT + '/api/teams';*/
     default:
 
   }

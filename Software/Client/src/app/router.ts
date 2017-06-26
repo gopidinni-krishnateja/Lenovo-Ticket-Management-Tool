@@ -9,6 +9,7 @@ import {UsersComponent} from "./users/users.component";
 import {LoginComponent} from "./login/login.component";
 import {TeamsComponent} from "./teams/teams.component";
 import {EditTicketComponent} from "./edit-ticket/edit-ticket.component";
+import {HeaderComponent} from "./header/header.component";
 export const router:Routes=[
 
   {path:'',redirectTo:'home',pathMatch:'full'},

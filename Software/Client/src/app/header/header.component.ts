@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-header',
@@ -6,10 +7,23 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+  public flag=1
+  constructor(private router: Router) {
 
-  constructor() { }
+  }
 
   ngOnInit() {
+    let val=localStorage.getItem("flag");
+    this.flag=Number(val)
+
   }
+  clear()
+  {
+
+    localStorage.clear();
+    this.router.navigateByUrl('#');
+    window.location.reload()
+  }
+
 
 }

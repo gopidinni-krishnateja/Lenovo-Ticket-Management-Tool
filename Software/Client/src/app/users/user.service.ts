@@ -25,9 +25,7 @@ export class userService {
       .map((res: Response) => {
         return res;
       })
-      .catch((error: any) => {
-        return Observable.throw(error.json());
-      });
+
   }
   get():Observable<any>{
     return this.queryApi.doget('getusers')

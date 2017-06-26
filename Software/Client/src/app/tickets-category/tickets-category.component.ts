@@ -8,6 +8,7 @@ import {Router, Routes} from "@angular/router";
 import {LoginComponent} from "../login/login.component";
 import {ActivatedRoute} from "@angular/router";
 import {ticketService} from "../create-ticket/ticket-service";
+import {HeaderComponent} from "../header/header.component";
 @Component({
   selector: 'app-tickets-category',
   templateUrl: './tickets-category.component.html',
@@ -26,6 +27,7 @@ export class TicketsCategoryComponent implements OnInit{
   public editUser
   public editId
   public AssgnedToUser
+  public Assigned
   ///////////////////
   public ticketArray;
   public categoryList=[];
@@ -55,11 +57,12 @@ export class TicketsCategoryComponent implements OnInit{
   sub
   id
   constructor(private model:NgbModal,private router: Router,private userService:userService,public _activatedRoute: ActivatedRoute,
-              public ticketService:ticketService
+              public ticketService:ticketService, public header:HeaderComponent
 
   )
 
   {
+
     this.fla=4;
     this.categoryList=["SpareParts","ManufactureDefect","PartsReplacement","BatteryLeakage","ChargerDefect","WarrentyExtension"];
 
@@ -100,6 +103,7 @@ export class TicketsCategoryComponent implements OnInit{
 
   @ViewChild('viewModal') public viewModal:ModalDirective;
   @ViewChild('deleteModal') public deleteModal:ModalDirective;
+  @ViewChild('assignModal') public assignModal:ModalDirective;
   private value:any = {};
   private _disabledV:string = '0';
   private disabled:boolean = false;
@@ -267,10 +271,14 @@ export class TicketsCategoryComponent implements OnInit{
       "AssignedByUSer":Number(this.AssignedByUSer)
     }
     this.ticketService.editTicket( this.editTicket ).subscribe((response) => {
-    console.log("----------------");
-    console.log(response);
+      this.Assigned=AssgnedToUser
+      this.assignModal.show()
+
   });
 }
+  closed(){
+    this.assignModal.hide()
+  }
 
 /////////////////////////////////////////////
 }

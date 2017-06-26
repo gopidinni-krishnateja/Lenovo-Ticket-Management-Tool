@@ -90,7 +90,7 @@
       <label class="col-md-4 control-label" for="1"></label>
       <div class="col-md-8">
         <button name="1" class="btn btn-success" (click)="AddUser(f);f.reset();"  [disabled]="f.invalid">Save</button>
-        <button name="2" class="btn btn-danger">Discard</button>
+        <button name="2" class="btn btn-danger" >Discard</button>
       </div>
     </div>
 
@@ -98,3 +98,24 @@
 
   </fieldset>
 </form>
+<!--
+/////////////////////////////////////////////////////Modal///////////////////////////////////////////////////////-->
+<div bsModal #conformation="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="container">
+          <div class="row">
+            <button type="button" class="close pull-right" aria-label="Close" >
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <p>You are Successfully Registered:- #{{name}}</p>
+            <div  class="col-sm-6">
+              <button type="btn" class="btn btn-primary" (click)="login()" >Login</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

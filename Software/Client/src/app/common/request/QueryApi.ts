@@ -10,8 +10,6 @@ export class QueryApi {
   }
 
   doPost(url:string, params: any) {
-    alert("in QueryApi")
-    console.log("in QueryApi")
     url = ClientEndPoint(url, params);
     return this.http.post(url, params );
   }

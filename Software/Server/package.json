@@ -1,3 +1,4 @@
+
 {
   "name": "ticketManagement",
   "version": "0.0.1",
@@ -6,6 +7,7 @@
     "start": "node server/index",
     "watch": "gulp",
     "dev": "concurrently \"nodemon ./server/index --watch server\" \"gulp\"",
+    "db-migrate": "../sequelize db:migrate",
     "build-dev": "gulp client.build:dev",
     "build-dist": "gulp client.build:dist",
     "test-client": "gulp client.unit_test",
@@ -24,6 +26,7 @@
     "compression": "^1.6.2",
     "express": "~4.14.0",
     "express-content-length-validator": "1.0.0",
+    "express-validator": "^3.1.2",
     "helmet": "^2.1.1",
     "lodash": "^4.6.1",
     "moment": "^2.18.1",
