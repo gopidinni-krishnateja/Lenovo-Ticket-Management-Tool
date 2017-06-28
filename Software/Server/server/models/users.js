@@ -32,9 +32,19 @@ module.exports = function(sequelize, DataTypes) {
     }
 
   }, {
+    tableName: "users",
+    underscore: true,
     classMethods: {
       associate: function(models) {
-        // associations can be defined here
+        models.users.belongsToMany(models.teams, {
+          through: models.teamsAssos,
+          as: "teams",
+          foreignKey: {
+            name: "teamId",
+            allowNull: false
+          },
+          onDelete: "CASCADE"
+        });
       }
     }
   });

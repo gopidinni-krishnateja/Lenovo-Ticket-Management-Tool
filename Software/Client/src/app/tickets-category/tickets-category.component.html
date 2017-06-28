@@ -75,9 +75,21 @@
         <td bgcolor="#6495ed" >{{item.ticketDiscription}}</td>
         <td bgcolor="#6495ed">{{item.ticketPriorty}}</td>
         <td bgcolor="#6495ed">{{item.ticketStatus}}</td>
-        <td><select  *ngIf="uservalue=='ADMIN'"  [(ngModel)]="users" (ngModelChange)="select(users,item.id)" >
+        <!--<td><select  *ngIf="uservalue=='ADMIN'"  [(ngModel)]="users" (ngModelChange)="select(users,item.id)" >
           <option *ngFor="let c of filterUsers" [ngValue]="c.id">{{c.name}}</option>
-        </select></td>
+        </select></td>-->
+        <td>
+          <div *ngIf="filterUsers.length > 0">
+          <ng-select #ng [allowClear]="true"
+                     [items]="filterUsers"
+                     (data)="refresh($event)"
+                     (removed)="remove($event)"
+                     (typed)="type($event)"
+                     placeholder="No item selected">
+          </ng-select>
+          </div>
+        </td>
+
         <td>
           <button type="button"  *ngIf="uservalue=='ADMIN'" class="btn btn-default btn-sm" (click)="assignUser(item.id,item.ticketName,item.ticketDiscription,item.ticketStatus,item.ticketPriorty,item.CreatedUser,item.ticketCategory,editUser,editId,item.ticketType,AssgnedToUser)">
             <span class="glyphicon glyphicon-pencil"></span>

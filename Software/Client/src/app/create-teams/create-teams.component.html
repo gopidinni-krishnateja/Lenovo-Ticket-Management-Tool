@@ -1,0 +1,49 @@
+<form class="form-horizontal" novalidate #f="ngForm">
+  <fieldset>
+
+    <!-- Form Name -->
+    <h1>Teams Registration Form</h1>
+    <!-- Text input-->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="1">Team Name</label>
+      <div class="col-md-4">
+        <input id="1" name="1" type="text"  class="form-control input-md"  name="teamName"  ngModel #teamName="ngModel" minlength="3" required placeholder="Team Name">
+        <div *ngIf="teamName.errors?.required && teamName.touched" class="error">
+          Team Name is required
+        </div>
+        <div *ngIf="teamName.errors?.minlength && teamName.touched" class="error">
+          Minimum of 3 characters
+        </div>
+      </div>
+    </div>
+
+    <!-- Password input-->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="5">Team Discription </label>
+      <div class="col-md-4">
+        <textarea id="5" name="5"  placeholder="" class="form-control input-md"  name="teamDiscription"  ngModel #teamDiscription="ngModel" minlength="3" required placeholder="Discription"></textarea>
+        <div *ngIf="teamDiscription.errors?.required && teamDiscription.touched" class="error">
+          Discription is required
+        </div>
+        <div *ngIf="teamDiscription.errors?.minlength && teamDiscription.touched" class="error">
+          Minimum of 3 characters
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <!-- Button (Double) -->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="1"></label>
+      <div class="col-md-8">
+        <button name="1" class="btn btn-success" (click)="AddTeam(f);f.reset();"  [disabled]="f.invalid">Save</button>
+        <button name="2" class="btn btn-danger" >Discard</button>
+      </div>
+    </div>
+
+
+
+  </fieldset>
+</form>

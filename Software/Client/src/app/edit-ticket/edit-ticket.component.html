@@ -1,0 +1,164 @@
+<div *ngIf="this.fla==3">
+<div class="container">
+  <div class="row">
+    <h1>Edit Ticket #{{id}}</h1>
+    <button type="button" class="close pull-right" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <form class="form-horizontal"  #form="ngForm" >
+
+      <div class="form-group">
+        <div class="col-sm-6">
+          <label >Created Ticket User</label><br>
+          <input type="text" class="form-control"  disabled name="CreatedUserName"  required placeholder="{{CreatedUserName}}"  >
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-6">
+          <label >Assigned To Ticket User</label><br>
+          <input type="text" class="form-control"  disabled name="AssignedByUserName"  required placeholder="{{AssignedToUserName}}"  >
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-6">
+          <label >Assigned By Ticket User</label><br>
+          <input type="text" class="form-control"  disabled name="AssignedToUserName"  required placeholder="{{AssignedByUserName}}"  >
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-6">
+          <label >Type</label><br>
+          <input type="text" class="form-control"  disabled name="editTicketType"  required placeholder="{{ticketType}}"  >
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-6">
+          <label >Category:</label><br>
+          <select class="form-control" name="ticketCategory" [(ngModel)]="ticketCategory">
+            <option value="SpareParts">Spare Parts</option>
+            <option value="ManufactureDefect">Manufacture Defect</option>
+            <option value="PartsReplacement">Parts Replacement</option>
+            <option value="BatteryLeakage">Battery Leakage</option>
+            <option value="ChargerDefect">Charger Defect</option>
+            <option value="WarrentyExtension">Warrenty Extension</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-6">
+          <label >Name</label>
+          <input type="text" class="form-control" minlength="6"  placeholder="Name" name="ticketName" minlength="6" [(ngModel)]="ticketName"  >
+          <span *ngIf="(ticketName&& ticketName.length)<6">Minimum Length is 7 </span>
+        </div>
+      </div>
+
+      <div class="form-group">
+
+        <div class="col-sm-6">
+          <label >Discription</label>
+          <textarea  class="form-control"  name="ticketDiscription"  required placeholder="Discription" [(ngModel)]="ticketDiscription" minlength="15"></textarea>
+          <span *ngIf="(ticketDiscription&& ticketDiscription.length)<15">Minimum Lenght is 15 </span>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-6">
+          <label >Priorty</label><br>
+          <select class="form-control" name="ticketPriorty" [(ngModel)]="ticketPriorty">
+            <option value="HIGH">High</option>
+            <option value="MEDIUM">Medium</option>
+            <option value="LOW">Low</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-6">
+          <label >Status</label><br>
+          <select class="form-control" name="ticketStatus" [(ngModel)]="ticketStatus">
+            <option value="OPEN">OPEN</option>
+            <option value="START">START</option>
+            <option value="PROCESS">PROCESS</option>
+            <option value="CLOSE">CLOSE</option>
+          </select>
+        </div>
+      </div>
+
+      <div  class="col-sm-6"  >
+        <button  type="button" id="btnsave" class="btn btn-success"(click)="UpdatedRecord()" [disabled]="((editDiscription && editDiscription.length)<15) || ((editName && editName.length)<6)" >Save</button>
+        <button type="btn" class="btn btn-danger" (click)="delete(id)" >Close</button>
+      </div>
+
+
+    </form>
+  </div>
+</div>
+</div>
+<div bsModal #deleteModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="container">
+          <div class="row">
+            <button type="button" class="close pull-right" aria-label="Close" >
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <p>Do You Want To Delete Ticket Id:- #{{deleteKey}}</p>
+            <div  class="col-sm-6">
+              <button type="btn" class="btn btn-primary" (click)="deleteconformation(deleteKey)" >Yes</button>
+              <button type="btn" class="btn btn-danger"  (click)="notconformation()">No</button>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--
+///////////////////////////////////////edit Modal////////////////////////////////////////////////////
+-->
+
+<div bsModal #editModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="container">
+          <div class="row">
+            <button type="button" class="close pull-right" aria-label="Close" >
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <p>You are Sucessfully Edited the Ticket:- #{{id}}</p>
+            <div  class="col-sm-6">
+
+              <button type="btn" class="btn btn-danger"  (click)="success()">Close</button>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--
+//////////////////////////////////////////////////////////////Assigned User Check///////////////////////////////-->
+<div bsModal #checkAssignUser="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="container">
+          <div class="row">
+            <button type="button" class="close pull-right" aria-label="Close" >
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <p>Sorry this ticket is not Assigned by any You dont have chance to Edit#</p>
+            <div  class="col-sm-6">
+
+              <button type="btn" class="btn btn-danger"  (click)="closed()">Close</button>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -5,9 +5,19 @@ module.exports = function(sequelize, DataTypes) {
     teamName: DataTypes.STRING,
     teamDiscription: DataTypes.STRING
   }, {
+    tableName: "teams",
+    underscore: true,
     classMethods: {
       associate: function(models) {
-
+        models.teams.belongsToMany(models.users, {
+          through: models.teamsAssos,
+          as: "users",
+          foreignKey: {
+            name: "userId",
+            allowNull: false
+          },
+          onDelete: "CASCADE"
+        });
       }
     }
   });

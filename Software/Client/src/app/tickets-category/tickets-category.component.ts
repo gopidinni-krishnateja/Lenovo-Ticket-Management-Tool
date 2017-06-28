@@ -9,6 +9,7 @@ import {LoginComponent} from "../login/login.component";
 import {ActivatedRoute} from "@angular/router";
 import {ticketService} from "../create-ticket/ticket-service";
 import {HeaderComponent} from "../header/header.component";
+import {SelectComponent} from "ng2-select";
 @Component({
   selector: 'app-tickets-category',
   templateUrl: './tickets-category.component.html',
@@ -58,6 +59,8 @@ export class TicketsCategoryComponent implements OnInit{
   public viewUsersDetails=[];
   sub
   id
+
+
   constructor(private model:NgbModal,private router: Router,private userService:userService,public _activatedRoute: ActivatedRoute,
               public ticketService:ticketService, public header:HeaderComponent
 
@@ -69,6 +72,7 @@ export class TicketsCategoryComponent implements OnInit{
     this.categoryList=["SpareParts","ManufactureDefect","PartsReplacement","BatteryLeakage","ChargerDefect","WarrentyExtension"];
 
   }
+  //@ViewChild('ng') public ngSelect :SelectComponent;
   ///////////////////////////////
   ngOnInit(){
     this.fla=6;
@@ -89,15 +93,16 @@ export class TicketsCategoryComponent implements OnInit{
         if(EachRecord.userType==='TECHNICAL' )
         {
           this.users.push(EachRecord.id)
-
-          let user={
+          this.filterUsers.push(
+          {
             id:EachRecord.id,
-            name:EachRecord.firstName+" "+EachRecord.lastName
-        }
-          this.filterUsers.push(user)
+            text:EachRecord.firstName+" "+EachRecord.lastName
+        })
+
         }
       })
       console.log(this.filterUsers)
+      //this.ngSelect.items =  this.filterUsers
     })
 
   }
@@ -127,6 +132,24 @@ export class TicketsCategoryComponent implements OnInit{
 
   public refreshValue(value:any):void {
     this.value = value;
+  }
+  public data:any;
+
+  public remove(value:string):void {
+    console.log('Removed value is: ', value);
+  }
+
+  public type(value:string):void {
+    console.log('New search input: ', value);
+    console.log(this.filterUsers)
+  }
+
+  public refresh(value:string):void {
+    this.data = value;
+    console.log("----")
+    console.log(this.data.id)
+    this.AssgnedToUser=this.data.id;
+
   }
 //////////////////////////////////////////////////////////////////////////////////////
   typeUser(value)
@@ -215,9 +238,6 @@ export class TicketsCategoryComponent implements OnInit{
         }
       }
     });
-    this.btn_1Id=this.btn_1Id+1
-    this.btn_2Id=this.btn_2Id+1
-    this.btn_3Id=this.btn_3Id+1
     console.log(this.viewRecord);
     this.viewModal.show();
     /*const modelRef = this.model.open(ViewTicketComponent,{size: 'lg'});
@@ -248,23 +268,9 @@ export class TicketsCategoryComponent implements OnInit{
   {
     this.deleteModal.hide()
   }
-  select(user,id)
-  {
-    this.AssgnedToUser=user;
-    this.editId=id;
-  }
+
     assignUser(id,name,editId,discription,proirty,status,category,type,createduser,typeTicket,AssgnedToUser)
   {
-    console.log("id->"+id);
-    console.log("name->"+name);
-    console.log("editId->"+editId);
-    console.log("discription->"+discription);
-    console.log("proirty->"+proirty);
-    console.log("status->"+status);
-    console.log("category->"+category);
-    console.log("type->"+type);
-    console.log("createduser->"+createduser);
-    console.log("AssignedBYUser->"+this.AssignedByUSer)
 
     this.editTicket={"id":id,
       "ticketName":name,

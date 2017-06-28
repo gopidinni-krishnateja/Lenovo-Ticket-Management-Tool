@@ -1,0 +1,95 @@
+
+
+    <!-- Form Name -->
+    <h1>Teams Registration Form</h1>
+    <!-- Text input-->
+    <form class="form-horizontal">
+      <fieldset>
+
+      <div class="form-group">
+      <label class="col-md-4 control-label" for="1">Team Name</label>
+      <div class="col-md-4">
+        <ng-select #ng [allowClear]="true"
+                   [items]="teamNames"
+                   (data)="refreshValue($event)"
+                   (removed)="removed($event)"
+                   (typed)="typed($event)"
+                   placeholder="No item selected">
+        </ng-select>
+      </div>
+        <div >
+          <button name="1" class="btn btn-success" (click)="Search()"  >Search</button>
+        </div>
+    </div>
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="1">User Type</label>
+          <div class="col-md-4">
+            <select name="userType" class="form-control" [(ngModel)]="userType">
+              <option value="ADMIN">ADMIN</option>
+              <option value="TECHNICAL">TECHNICAL</option>
+              <option value="HELPLINE">HELPLINE</option>
+            </select>
+          </div>
+        </div>
+
+
+<!--/////////////////////////////////////////////////-->
+    <section class="success" >
+      <div class="container">
+        <table class="table table-striped" [mfData]="filterCatagory" #mf="mfDataTable" [mfRowsOnPage]="5">
+          <thead>
+          <tr>
+            <th style="width: 20%">
+              <mfDefaultSorter by="firstName">First Name</mfDefaultSorter>
+            </th>
+            <th style="width: 20%">
+              <mfDefaultSorter by="lastName">Last Name</mfDefaultSorter>
+            </th>
+            <th style="width: 20%">
+              <mfDefaultSorter by="dob">Dob</mfDefaultSorter>
+            </th>
+            <th style="width: 20%">
+              <mfDefaultSorter by="email">Email</mfDefaultSorter>
+            </th>
+          </tr>
+          </thead>
+          <tbody  >
+          <tr *ngFor="let item of this.filterUser;let position=index" >
+            <td bgcolor="#6495ed">{{item.firstName}}</td>
+            <td bgcolor="#6495ed">{{item.lastName}}</td>
+            <td bgcolor="#6495ed">{{item.dob}}</td>
+            <td bgcolor="#6495ed">{{item.email}}</td>
+            <td>
+              <button type="button" class="btn btn-default btn-sm" (click)="assign(item.id,this.selectedTeamName)">
+                <span class="glyphicon glyphicon glyphicon-check"></span>
+              </button>
+              <button type="button" class="btn btn-default btn-sm" (click)="delete(item.id)">
+                <span class="glyphicon glyphicon-remove"></span>
+              </button>
+              <span *ngIf="assigned==1" class="glyphicon glyphicon-ok"></span>
+
+            </td>
+
+          </tr>
+          </tbody>
+
+
+          <tfoot>
+          <tr>
+            <td colspan="4">
+              <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+            </td>
+          </tr>
+          </tfoot>
+        </table>
+      </div>
+    </section>
+<!--////////////////////////////////////////////////////////-->
+
+    <!-- Button (Double) -->
+
+
+
+
+  </fieldset>
+</form>

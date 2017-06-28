@@ -35,7 +35,6 @@ export default class teamsController {
     teamsDAO.getAll(_query)
       .then(teams => {
         res.status(200).json(teams);
-        console.log("successful")
       })
   }
 
