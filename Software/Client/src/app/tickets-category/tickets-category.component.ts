@@ -28,6 +28,8 @@ export class TicketsCategoryComponent implements OnInit{
   public editId
   public AssgnedToUser
   public Assigned
+  public AssignUserCheck=0
+  public AssignedUserTickets=[]
   ///////////////////
   public ticketArray;
   public categoryList=[];
@@ -104,6 +106,7 @@ export class TicketsCategoryComponent implements OnInit{
   @ViewChild('viewModal') public viewModal:ModalDirective;
   @ViewChild('deleteModal') public deleteModal:ModalDirective;
   @ViewChild('assignModal') public assignModal:ModalDirective;
+
   private value:any = {};
   private _disabledV:string = '0';
   private disabled:boolean = false;
@@ -162,6 +165,10 @@ export class TicketsCategoryComponent implements OnInit{
   AddTeam()
   {
     this.router.navigateByUrl('/teams');
+  }
+  CreateTeams(id)
+  {
+    this.router.navigate(['createteams/' +id ]);
   }
   public edit=(index)=>
   {

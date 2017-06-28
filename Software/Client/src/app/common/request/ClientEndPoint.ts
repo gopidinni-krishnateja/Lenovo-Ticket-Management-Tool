@@ -12,6 +12,7 @@ export const ticket='ticket'
 export const getTicket='getTicket'
 export const editTicket='editTicket'
 export const TICKET='TICKET'
+export const getteams='getteams'
 export const ClientEndPoint = (type: string, params: any)=>{
 
   switch (type) {
@@ -34,6 +35,8 @@ export const ClientEndPoint = (type: string, params: any)=>{
       return environment.API_ROOT + '/api/tickets/' + params.id;
     case TICKET:
       return environment.API_ROOT + '/api/tickets/'+params;
+    case getteams:
+      return environment.API_ROOT + '/api/teams';
     default:
 
   }

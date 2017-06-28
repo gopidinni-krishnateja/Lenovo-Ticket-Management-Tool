@@ -12,7 +12,7 @@ export  default class teamsDAO
       //logger.info(`Create: ${JSON.stringify(_reqBody)}`);
       models.teams.create({
         teamName:_reqBody.teamName,
-        userId:_reqBody.userId,
+        teamDiscription:_reqBody.teamDiscription,
       }).then((teams) => {
         console.log("get")
         res.send(teams)
@@ -26,7 +26,7 @@ export  default class teamsDAO
     return new Promise((resolve, reject) => {
       models.teams.update({
           teamName:_reqBody.teamName,
-          userId:_reqBody.userId,
+          teamDiscription:_reqBody.teamDiscription,
         },
         { where: { id: _reqBody.id}, returning: true, plain:true}
       ).then((teams) => {
@@ -55,11 +55,10 @@ export  default class teamsDAO
   }
   static getAll(queryParams,res) {
     return new Promise((resolve, reject) => {
-      console.log(models.teams);
       models.teams
-        .findAndCountAll({})
+        .findAll({})
         .then(teams => {
-          resolve(teams);
+          resolve(teams)
         }, (error) => {
           reject(error);
         });
@@ -69,8 +68,8 @@ export  default class teamsDAO
     return new Promise((resolve, reject) => {
       console.log('getById Dao')
       models.teams.findAll({
-        attributes:['id','teamName','userID'],
-        where:{$or:[{teamName:_id},{userId:_id}]},
+        attributes:['id'],
+        where:{$or:[{id:_id}]},
       }).then((teams) => {
         console.log(teams)
         resolve(teams)

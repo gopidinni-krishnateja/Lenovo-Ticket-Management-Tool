@@ -33,7 +33,8 @@
       </div>
       <div class="pull-left div-val" >
         <button *ngIf="uservalue=='HELPLINE'" type="btn" class="btn btn-primary" (click)="CreateTicket(userId)" >Create Tickets</button>
-        <button *ngIf="uservalue=='ADMIN'" type="btn" class="btn btn-primary" (click)="AddTeam()" >ADD TEAMS</button>
+        <button *ngIf="uservalue=='ADMIN'" type="btn" class="btn btn-primary" (click)="AddTeam()" >Associate TEAMS</button>
+        <button *ngIf="uservalue=='ADMIN'" type="btn" class="btn btn-primary" (click)=" CreateTeams(userId)" >Create TEAMS</button>
       </div>
 
 
@@ -72,8 +73,8 @@
         <td bgcolor="#6495ed">{{item.id}}</td>
         <td bgcolor="#6495ed">{{item.ticketName}}</td>
         <td bgcolor="#6495ed" >{{item.ticketDiscription}}</td>
-        <td bgcolor="#6495ed">{{item.ticketStatus}}</td>
         <td bgcolor="#6495ed">{{item.ticketPriorty}}</td>
+        <td bgcolor="#6495ed">{{item.ticketStatus}}</td>
         <td><select  *ngIf="uservalue=='ADMIN'"  [(ngModel)]="users" (ngModelChange)="select(users,item.id)" >
           <option *ngFor="let c of filterUsers" [ngValue]="c.id">{{c.name}}</option>
         </select></td>
@@ -153,27 +154,7 @@
           </tr>
 
           <tr>
-            <div *ngIf="viewRecord.status=='Open'||viewRecord.status=='Start' ;else login">
-            <wizard >
-              <wizard-step title="Start">
-                <button type="button" nextStep class="btn-default" (click)="start(viewRecord.status,viewRecord.Ticket_No)">Open</button>
-              </wizard-step>
-              <wizard-step title="Process" >
-                <button type="button" nextStep class="btn-success" (click)=" proces(viewRecord.Ticket_No)">Process</button>
-              </wizard-step>
 
-            </wizard>
-            </div>
-            <template #login [ngIf]="viewRecord.status=='Process'">
-            <wizard >
-              <wizard-step title="Resolve" >
-                <button type="button" nextStep class="btn-success" (click)=" proces(viewRecord.Ticket_No)">Resolve</button>
-              </wizard-step>
-              <wizard-step title="Close">
-                <button type="button" nextStep class="btn-danger" (click)="resolv(viewRecord.Ticket_No)">Close</button>
-              </wizard-step>
-            </wizard>
-            </template>
           </tr>
           </tbody>
         </table>
@@ -229,5 +210,8 @@
     </div>
   </div>
 </div>
+<!--
+/////////////////////////////////////////////////Check Assign User//////////////////////////////////////////
+-->
 
 <router-outlet></router-outlet>

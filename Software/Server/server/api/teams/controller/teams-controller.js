@@ -31,9 +31,11 @@ export default class teamsController {
   }
   static getAll(req, res) {
     const _query = req.query;
+
     teamsDAO.getAll(_query)
-      .then(users => {
-        res.status(200).json(teams).send(teams);
+      .then(teams => {
+        res.status(200).json(teams);
+        console.log("successful")
       })
   }
 
@@ -52,17 +54,12 @@ export default class teamsController {
     let _id = req.params.id;
     console.log('in Controller');
     teamsDAO.getById(_id)
-      .then((users) => {
+      .then((teams) => {
         res.status(200).json(teams).send(teams);
       })
       .catch((error => res.json(error)))
   }
-  static getAll(req, res) {
-    teamsDAO
-      .getAll()
-      .then(teamss => res.status(200).json(teamss))
-      .catch(error => res.status(400).json(error));
-  }
+
 
   static createNew(req, res) {
     let _teams = req.body;

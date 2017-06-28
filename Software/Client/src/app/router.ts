@@ -10,10 +10,12 @@ import {LoginComponent} from "./login/login.component";
 import {TeamsComponent} from "./teams/teams.component";
 import {EditTicketComponent} from "./edit-ticket/edit-ticket.component";
 import {HeaderComponent} from "./header/header.component";
+import {CreateTeamsComponent} from "./create-teams/create-teams.component";
 export const router:Routes=[
 
   {path:'',redirectTo:'home',pathMatch:'full'},
   {path:'createticket/:id', component:CreateTicketComponent},
+  {path:'createteams/:id', component:CreateTeamsComponent},
   /*{path:'edit/:id',component:EditTicketComponent},*/
   {path:'teams',component:TeamsComponent},
   {path:'users',component:UsersComponent},

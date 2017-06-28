@@ -12,8 +12,8 @@ module.exports = {
       teamName: {
         type: Sequelize.STRING
       },
-      userId: {
-        type: Sequelize.INTEGER,
+      teamDiscription: {
+        type: Sequelize.STRING,
 
       },
           createdAt: {

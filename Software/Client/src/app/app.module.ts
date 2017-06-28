@@ -18,6 +18,8 @@ import { LoginComponent } from './login/login.component';
 import { HeaderComponent } from './header/header.component';
 import { TeamsComponent } from './teams/teams.component';
 import { EditTicketComponent } from './edit-ticket/edit-ticket.component';
+import { CreateTeamsComponent } from './create-teams/create-teams.component';
+
 @NgModule( {
   declarations: [
     AppComponent,
@@ -29,6 +31,7 @@ import { EditTicketComponent } from './edit-ticket/edit-ticket.component';
     HeaderComponent,
     TeamsComponent,
     EditTicketComponent,
+    CreateTeamsComponent,
 
   ],
   imports: [
