@@ -2,27 +2,37 @@ import Promise from "bluebird";
 import models from "../../../../server/models"
 import _ from "lodash";
 import moment from "moment";
+import userValidator from "../../.././api/users/userValidator/user-validator"
 export  default class userDAO
 {
   static createNew(request,res) {
 
     return new Promise((resolve, reject) => {
       let _reqBody = request;
-      //logger.info(`Create: ${JSON.stringify(_reqBody)}`);
-      console.log("in DAO")
-      console.log(_reqBody)
-      models.users.create({
-        firstName:_reqBody.firstName,
-        lastName:_reqBody.lastName,
-        email:_reqBody.email,
-        password:_reqBody.password,
-        userType:_reqBody.userType,
-        dob:_reqBody.dob,
-      }).then((users) => {
-        resolve(users);
-      }, (error) => {
-        reject(error);
+      userValidator.validateEmailNew(_reqBody.email).then((users)=>{
+        let val=users;
+       if(val.email===_reqBody.email)
+       {
+         let x=1
+        resolve(x)
+       }
+      }).catch(error => {
+        models.users.create({
+          firstName:_reqBody.firstName,
+          lastName:_reqBody.lastName,
+          email:_reqBody.email,
+          password:_reqBody.password,
+          userType:_reqBody.userType,
+          dob:_reqBody.dob,
+        }).then((users) => {
+          resolve(users);
+        }, (error) => {
+          reject(error);
+        });
       });
+
+
+
     });
   }
   static update(_reqBody,res) {
@@ -83,9 +93,10 @@ export  default class userDAO
           .then((users) => {
             console.log(users)
             resolve(users)
-
-          })
-      })
+          }, (error) => {
+            reject(error);
+          });
+      });
     }
 
     else
@@ -97,8 +108,10 @@ export  default class userDAO
             console.log(users)
             resolve(users)
 
-          })
-      })
+          }, (error) => {
+            reject(error);
+          });
+      });
     }
 
 

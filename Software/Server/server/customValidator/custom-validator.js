@@ -6,6 +6,8 @@ import models from "../../server/models"
 module.exports = expressValidator({
   customValidators: {
     isUniqueClient: function (email) {
+      console.log("*******")
+      console.log(email)
       return new Promise(function (resolve, reject) {
         models.users.findOne({where: {email: email}})
           .then(function (client) {

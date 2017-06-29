@@ -15,11 +15,11 @@ export const TICKET='TICKET'
 export const getteams='getteams'
 export const teamsAsso='teamsAsso'
 export const getTeamsAsso='getTeamsAsso'
+export const association='association'
 export const ClientEndPoint = (type: string, params: any)=>{
 
   switch (type) {
     case users:
-      alert("in post")
       return environment.API_ROOT + '/api/users';
     case user:
       return environment.API_ROOT + '/api/users/' + params;

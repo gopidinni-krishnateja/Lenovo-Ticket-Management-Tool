@@ -7,10 +7,10 @@ export default class usersController {
       .then(users => {
         res.status(201)
           .json(users);
-
       })
       .catch(error => {
-
+        if (error === 404)
+          res.status(400).json(error);
       });
   }
 
@@ -47,13 +47,19 @@ export default class usersController {
       .then(users => {
         var data=JSON.stringify(users)
        res.send(data);
-      })
+      }).catch(error => {
+      if (error === 404)
+        res.status(400).json(error);
+    });
   }
   static getById(req,res){
     let _id = req.params.id;
     usersDAO.getById(req.params.id)
       .then((users)=>{
         res.status(200).json(users);
-      })
+      }).catch(error => {
+      if (error === 404)
+        res.status(400).json(error);
+    });
   }
 }

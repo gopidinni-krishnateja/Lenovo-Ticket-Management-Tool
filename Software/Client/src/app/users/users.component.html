@@ -47,8 +47,9 @@
       <label class="col-md-4 control-label" for="3">Email Id</label>
       <div class="col-md-4">
         <input  name="3" type="email" placeholder="" class="form-control input-md"  name="email"  ngModel #email="ngModel" minlength="6" required placeholder="Email Id">
+        <span *ngIf="flag==1">Email Id is already taken!!!!</span>
         <div *ngIf="email.errors?.required && email.touched" class="error">
-          Email Name is required
+          EmailId is required
         </div>
         <div *ngIf="email.errors?.minlength && email.touched" class="error">
           Minimum of 6 characters

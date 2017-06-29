@@ -29,51 +29,28 @@ export class TicketsCategoryComponent implements OnInit{
   public editId
   public AssgnedToUser
   public Assigned
-  public AssignUserCheck=0
-  public AssignedUserTickets=[]
-  ///////////////////
-  public ticketArray;
   public categoryList=[];
   public filterCatagory=[];
   public selectedValue;
   public deviceType;
   public viewRecord:any={};
   public AllRecords=[];
-  public editRecord={};
-  public editTicketName;
-  public editTicketType;
-  public editProirty;
   public editName;
   public editDiscription;
-  public editedTicket;
-  public editCategory;
   public deleteKey;
   public deleteIndex;
   public process
-  public strt=true;
-  public resol;
   public checkStatusTicket;
-  public btn_1Id=0;
-  public btn_2Id=0;
-  public btn_3Id=0;
-  public viewUsersDetails=[];
-  sub
-  id
+  public id
 
 
   constructor(private model:NgbModal,private router: Router,private userService:userService,public _activatedRoute: ActivatedRoute,
-              public ticketService:ticketService, public header:HeaderComponent
-
-  )
-
-  {
-
+              public ticketService:ticketService, public header:HeaderComponent) {
     this.fla=4;
     this.categoryList=["SpareParts","ManufactureDefect","PartsReplacement","BatteryLeakage","ChargerDefect","WarrentyExtension"];
 
   }
   //@ViewChild('ng') public ngSelect :SelectComponent;
-  ///////////////////////////////
   ngOnInit(){
     this.fla=6;
     this._activatedRoute.params.subscribe(params => {console.log(params)
@@ -106,8 +83,6 @@ export class TicketsCategoryComponent implements OnInit{
     })
 
   }
-/////////////////////////////////////////
-
   @ViewChild('viewModal') public viewModal:ModalDirective;
   @ViewChild('deleteModal') public deleteModal:ModalDirective;
   @ViewChild('assignModal') public assignModal:ModalDirective;
@@ -115,9 +90,6 @@ export class TicketsCategoryComponent implements OnInit{
   private value:any = {};
   private _disabledV:string = '0';
   private disabled:boolean = false;
-
-
-
   public selected(value:any):void {
     this.selectedValue = value.id;
   }
@@ -135,9 +107,6 @@ export class TicketsCategoryComponent implements OnInit{
   }
   public data:any;
 
-  public remove(value:string):void {
-    console.log('Removed value is: ', value);
-  }
 
   public type(value:string):void {
     console.log('New search input: ', value);
@@ -151,7 +120,6 @@ export class TicketsCategoryComponent implements OnInit{
     this.AssgnedToUser=this.data.id;
 
   }
-//////////////////////////////////////////////////////////////////////////////////////
   typeUser(value)
   {
     console.log("in")
@@ -196,7 +164,7 @@ export class TicketsCategoryComponent implements OnInit{
   public edit=(index)=>
   {
     this.fla=3;
-    this.router.navigate(['/home/edit/',index ]);
+    this.router.navigate(['/home/edit/',+index ,+this.AssignedByUSer ]);
   }
   //Display Data in Table
   public DisplayTable(selectedValue,typeofdevice)
@@ -248,7 +216,6 @@ export class TicketsCategoryComponent implements OnInit{
      console.log("failed   ",failed)
      })
      console.log(this.viewRecord.Ticket_No)*/
-
   }
   public delete=(key,index)=>{
     this.deleteKey=key
@@ -268,7 +235,6 @@ export class TicketsCategoryComponent implements OnInit{
   {
     this.deleteModal.hide()
   }
-
     assignUser(id,name,editId,discription,proirty,status,category,type,createduser,typeTicket,AssgnedToUser)
   {
 
@@ -292,6 +258,4 @@ export class TicketsCategoryComponent implements OnInit{
   closed(){
     this.assignModal.hide()
   }
-
-/////////////////////////////////////////////
 }

@@ -23,7 +23,7 @@ export const router:Routes=[
   {path:'home',component:TicketsCategoryComponent,
     children:[
       {path:':id',component:TicketsCategoryComponent},
-      {path:'edit/:id',component:EditTicketComponent}
+      {path:'edit/:id/:Id',component:EditTicketComponent}
     ]
   }
 ];

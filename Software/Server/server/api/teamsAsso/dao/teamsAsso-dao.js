@@ -56,7 +56,7 @@ export  default class teamsAssoDao
       models.teamsAssos
         .findAll({})
         .then(teamsAssos => {
-          /*console.log("in users: "+ JSON.stringify(teamAssos));*/
+          console.log(teamsAssos)
           resolve(teamsAssos);
         }, (error) => {
           reject(error);

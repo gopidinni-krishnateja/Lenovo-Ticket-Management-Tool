@@ -78,12 +78,11 @@
         <!--<td><select  *ngIf="uservalue=='ADMIN'"  [(ngModel)]="users" (ngModelChange)="select(users,item.id)" >
           <option *ngFor="let c of filterUsers" [ngValue]="c.id">{{c.name}}</option>
         </select></td>-->
-        <td>
+        <td *ngIf="uservalue=='ADMIN'">
           <div *ngIf="filterUsers.length > 0">
           <ng-select #ng [allowClear]="true"
                      [items]="filterUsers"
                      (data)="refresh($event)"
-                     (removed)="remove($event)"
                      (typed)="type($event)"
                      placeholder="No item selected">
           </ng-select>

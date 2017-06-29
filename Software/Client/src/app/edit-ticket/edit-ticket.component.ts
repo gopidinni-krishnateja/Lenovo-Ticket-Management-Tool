@@ -4,6 +4,7 @@ import {userService} from "../users/user.service";
 import {QueryApi} from "../common/request/QueryApi";
 import {ticketService} from "../create-ticket/ticket-service";
 import {ModalDirective} from "ngx-bootstrap";
+import {timeout} from "rxjs/operator/timeout";
 
 @Component({
   selector: 'app-edit-ticket',
@@ -28,6 +29,7 @@ export class EditTicketComponent implements OnInit {
   public AssignedToUserName
   public AssignedByUserName
   public deleteKey
+  public loginId
   constructor(private router: Router,public _activatedRoute: ActivatedRoute,public ticketService:ticketService,public userService:userService) {
       this.fla=3;
   }
@@ -37,6 +39,7 @@ export class EditTicketComponent implements OnInit {
   ngOnInit() {
     this._activatedRoute.params.subscribe(params => {console.log(params)
       const id =Number(params.id);
+       this.loginId=Number(params.Id);
       this.ticketService.getTicket(id).subscribe((response) => {
         this.id=response.id
         this.ticketName=response.ticketName
@@ -105,13 +108,14 @@ export class EditTicketComponent implements OnInit {
   {
 
     localStorage.setItem("flag","1");
-    this.router.navigate(['home/'  ,{id:this.AssignedToUser}]);
+    this.router.navigate(['home/'  ,{id:this.loginId}]);
     window.location.reload()
 
   }
   closed()
   {
-    this.router.navigate(['home/'  ,{id:this.AssignedToUser}]);
+    this.router.navigate(['home/'  ,{id:this.loginId}]);
+
     window.location.reload()
   }
 

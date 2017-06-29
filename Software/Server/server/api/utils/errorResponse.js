@@ -3,6 +3,7 @@ export default class ErrorResponse {
 
     //default constructor
     constructor(code, message, errors = []) {
+      console.log("int Error")
         this.code = code;
         this.message = message;
         this.errors = errors;

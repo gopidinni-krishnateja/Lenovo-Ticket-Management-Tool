@@ -1,16 +1,24 @@
 /**
  * Created by darlz on 25-Jun-17.
  */
-
+import models from "../../../../server/models"
 import ErrorResponse from "../../utils/ErrorResponse";
 export default class userValidator {
 
-  static validateEmailNew(req, res, next) {
+  static validateEmailNew(req) {
+        return new Promise((resolve, reject) => {
+          models.users.findOne({where: {email: req}})
+            .then((users) => {
+              resolve(users);
+            }, (error) => {
+              reject(error);
+            });
+        });
 
-    req.checkBody("email", new ErrorResponse(422, "Email id is required")).notEmpty().isEmail();
-    req.checkBody("email", new ErrorResponse(422, "Client already exists with same email id")).isUniqueClient();
 
-    userValidator.proceedReq(req, res, next);
+   /* req(req, new ErrorResponse(422, "Email id is required")).notEmpty().isEmail();
+    req(req, new ErrorResponse(422, "Client already exists with same email id")).isUniqueClient();*/
+
   }
   static proceedReq(req, res, next) {
     req.asyncValidationErrors().then(function (res) {

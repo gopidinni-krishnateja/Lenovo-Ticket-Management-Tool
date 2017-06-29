@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
 
     const params = value.email;
     this.userService.getUser(params).subscribe((response) => {
-        if(value.email===  response.email&& value.password=== response.password)
+        if(value.email===response.email&& value.password=== response.password)
         {
           let type=value.userType
           let id=response.id
@@ -52,8 +52,12 @@ export class LoginComponent implements OnInit {
               break;
           }
         }
+        else if(value.email!=response.email)
+        {
+          alert("please check login id & password")
+        }
 
-      });
+      })
 
 
 

@@ -7,7 +7,7 @@
       <fieldset>
 
       <div class="form-group">
-      <label class="col-md-4 control-label" for="1">Team Name</label>
+      <label class="col-md-4 control-label" >Team Name</label>
       <div class="col-md-4">
         <ng-select #ng [allowClear]="true"
                    [items]="teamNames"
@@ -60,10 +60,10 @@
             <td bgcolor="#6495ed">{{item.dob}}</td>
             <td bgcolor="#6495ed">{{item.email}}</td>
             <td>
-              <button type="button" class="btn btn-default btn-sm" (click)="assign(item.id,this.selectedTeamName)">
+              <button type="button" class="btn btn-default btn-sm" (click)="assign(item.id,selectedTeamName,position)">
                 <span class="glyphicon glyphicon glyphicon-check"></span>
               </button>
-              <button type="button" class="btn btn-default btn-sm" (click)="delete(item.id)">
+              <button type="button" class="btn btn-default btn-sm" (click)="delete(item.id,associateTeamId)">
                 <span class="glyphicon glyphicon-remove"></span>
               </button>
               <span *ngIf="assigned==1" class="glyphicon glyphicon-ok"></span>
@@ -93,3 +93,41 @@
 
   </fieldset>
 </form>
+    <div bsModal #assignModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-md">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div class="container">
+              <div class="row">
+                <button type="button" class="close pull-right" aria-label="Close" >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                <p>Please Select any Team:- #</p>
+                <div  class="col-sm-6">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div bsModal #success="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-md">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div class="container">
+              <div class="row">
+                <button type="button" class="close pull-right" aria-label="Close" >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                <p>You are successfully Assigned to Team:- #{{selectedTeamName}} with User Id{{AssignedPersonId}}</p>
+                <div  class="col-sm-6">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>

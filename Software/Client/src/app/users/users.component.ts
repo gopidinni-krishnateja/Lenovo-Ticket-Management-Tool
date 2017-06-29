@@ -15,31 +15,28 @@ import {ModalDirective} from "ngx-bootstrap";
 export class UsersComponent  implements OnInit{
   @ViewChild('conformation') public conformation:ModalDirective;
   public data
-  public flag=0;
+  public validate
   public name
   public email
+  public flag=0;
   public filteremails=[]
-  public temp=0;
-  public check=""
-  public check2=""
+
   constructor(public userService:userService,private router: Router) { }
   ngOnInit(){
-    this.userService.get().subscribe((response) => {
-
-      response.forEach((EachRecord)=>{
-
-          this.filteremails.push(EachRecord.email)
-      })
-    })
   }
   AddUser=({ value }: { value: User })=> {
     this.name=value.firstName+" "+value.lastName;
-
-      console.log(value)
     this.userService.adduser( value ).subscribe((response) => {
+        this.validate=Number(response._body)
+      if(this.validate==1)
+      {
+        this.flag=1;
+      }
+      else {
         this.conformation.show()
-
+      }
     });
+
   }
   login()
   {
