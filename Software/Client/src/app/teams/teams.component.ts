@@ -135,6 +135,7 @@ export class TeamsComponent implements OnInit {
     this.AssignedPersonId=userId
     this.success.show()
    }
+    window.location.reload()
 
   }
   delete(userId,teamId)
