@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Login} from "./login-user-interface";
 import {UsersComponent} from "../users/users.component";
 import {userService} from "../users/user.service";
@@ -9,6 +9,7 @@ import {Router} from "@angular/router";
 import { ActivatedRoute, Params} from '@angular/router'
 import {ticketService} from "../create-ticket/ticket-service";
 import { LocalStorageModule } from 'angular-2-local-storage';
+import {ModalDirective} from "ngx-bootstrap";
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -22,11 +23,13 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
   }
+  @ViewChild('loginModal') public loginModal:ModalDirective;
   loginUser=({ value }: { value: Login })=> {
 
     const params = value.email;
     this.userService.getUser(params).subscribe((response) => {
-        if(value.email===response.email&& value.password=== response.password)
+      console.log(response)
+        if(value.email===response.email&& value.password=== response.password && value.userType===response.userType)
         {
           let type=value.userType
           let id=response.id
@@ -52,9 +55,9 @@ export class LoginComponent implements OnInit {
               break;
           }
         }
-        else if(value.email!=response.email)
+        else if(response==null)
         {
-          alert("please check login id & password")
+          this.loginModal.show()
         }
 
       })

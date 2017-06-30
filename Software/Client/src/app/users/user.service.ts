@@ -46,4 +46,22 @@ export class userService {
         return Observable.throw(error.json().error || 'Server error');
       });
   }
+  editUser( params ): Observable<any> {
+    return this.queryApi.doPut('editUser', params)
+      .map((res: Response) => {
+        return res;
+      })
+      .catch((error: any) => {
+        return Observable.throw(error.json());
+      });
+  }
+  deleteUser(params) {
+    return this.queryApi.doDelete('deleteUser', params)
+      .map((res: Response) => {
+        return res;
+      })
+      .catch((error: any) => {
+        return Observable.throw(error.json() || 'Server error');
+      });
+  }
 }

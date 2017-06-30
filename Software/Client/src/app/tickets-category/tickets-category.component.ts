@@ -166,6 +166,9 @@ export class TicketsCategoryComponent implements OnInit{
     this.fla=3;
     this.router.navigate(['/home/edit/',+index ,+this.AssignedByUSer ]);
   }
+  public viewUsers=(id)=>{
+    this.router.navigate(['viewusers/'+id])
+  }
   //Display Data in Table
   public DisplayTable(selectedValue,typeofdevice)
   {

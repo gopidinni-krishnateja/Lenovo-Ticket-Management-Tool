@@ -11,7 +11,6 @@ import {DataTableModule} from "angular2-datatable";
 import {routes} from './router';
 import { ModalModule } from 'ngx-bootstrap';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import { ViewTicketComponent } from './view-ticket/view-ticket.component';
 import { WizardModule } from 'ng2-archwizard';
 import { UsersComponent } from './users/users.component';
 import { LoginComponent } from './login/login.component';
@@ -19,19 +18,22 @@ import { HeaderComponent } from './header/header.component';
 import { TeamsComponent } from './teams/teams.component';
 import { EditTicketComponent } from './edit-ticket/edit-ticket.component';
 import { CreateTeamsComponent } from './create-teams/create-teams.component';
+import { ViewUserComponent } from './view-user/view-user.component';
+import { EditUserComponent } from './edit-user/edit-user.component';
 
 @NgModule( {
   declarations: [
     AppComponent,
     TicketsCategoryComponent,
     CreateTicketComponent,
-    ViewTicketComponent,
     UsersComponent,
     LoginComponent,
     HeaderComponent,
     TeamsComponent,
     EditTicketComponent,
     CreateTeamsComponent,
+    ViewUserComponent,
+    EditUserComponent,
 
   ],
   imports: [
@@ -47,7 +49,7 @@ import { CreateTeamsComponent } from './create-teams/create-teams.component';
     NgbModule,
     WizardModule
   ],
-  entryComponents : [ViewTicketComponent],
+  entryComponents : [],
   providers: [],
   bootstrap: [AppComponent]
 })

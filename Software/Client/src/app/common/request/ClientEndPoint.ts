@@ -16,6 +16,8 @@ export const getteams='getteams'
 export const teamsAsso='teamsAsso'
 export const getTeamsAsso='getTeamsAsso'
 export const association='association'
+export const editUser='editUser'
+export const deleteUser='deleteUser'
 export const ClientEndPoint = (type: string, params: any)=>{
 
   switch (type) {
@@ -43,6 +45,10 @@ export const ClientEndPoint = (type: string, params: any)=>{
       return environment.API_ROOT + '/api/teamsasso';
     case getTeamsAsso:
       return environment.API_ROOT + '/api/teamsasso'
+    case editUser:
+      return environment.API_ROOT + '/api/users/' + params.id;
+    case deleteUser:
+      return environment.API_ROOT + '/api/users/'+params;
     default:
 
   }

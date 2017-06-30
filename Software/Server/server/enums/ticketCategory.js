@@ -1,6 +1,7 @@
 /**
  * Created by darlz on 17-Jun-17.
  */
+
 const ticketCategory = {
   "SPAREPARTS": { code: "SPAREPARTS", value: "Spare Parts" },
   "MANUFACTUREDEFECT": { code: "MANUFACTUREDEFECT", value: "Manufacture Defect" },

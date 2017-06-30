@@ -6,18 +6,18 @@ import ErrorResponse from "../../utils/ErrorResponse";
 export default class userValidator {
 
   static validateEmailNew(req) {
-        return new Promise((resolve, reject) => {
-          models.users.findOne({where: {email: req}})
-            .then((users) => {
-              resolve(users);
-            }, (error) => {
-              reject(error);
-            });
+    return new Promise((resolve, reject) => {
+      models.users.findOne({where: {email: req}})
+        .then((users) => {
+          resolve(users);
+        }, (error) => {
+          reject(error);
         });
+    });
 
 
-   /* req(req, new ErrorResponse(422, "Email id is required")).notEmpty().isEmail();
-    req(req, new ErrorResponse(422, "Client already exists with same email id")).isUniqueClient();*/
+    /* req(req, new ErrorResponse(422, "Email id is required")).notEmpty().isEmail();
+     req(req, new ErrorResponse(422, "Client already exists with same email id")).isUniqueClient();*/
 
   }
   static proceedReq(req, res, next) {

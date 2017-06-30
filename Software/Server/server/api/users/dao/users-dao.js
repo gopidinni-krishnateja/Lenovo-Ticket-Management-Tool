@@ -30,9 +30,6 @@ export  default class userDAO
           reject(error);
         });
       });
-
-
-
     });
   }
   static update(_reqBody,res) {
@@ -42,10 +39,8 @@ export  default class userDAO
           lastName:_reqBody.lastName,
           email:_reqBody.email,
           password:_reqBody.password,
-          startDate:new Date(_reqBody.startDate.year,_reqBody.startDate.month-1,_reqBody.startDate.day),
-          endDate:new Date(_reqBody.endDate.year,_reqBody.endDate.month-1,_reqBody.endDate.day),
           userType:_reqBody.userType,
-          dob:new Date(_reqBody.dob.year,_reqBody.dob.month-1,_reqBody.dob.day)
+          dob:_reqBody.dob,
         },
         { where: { id: _reqBody.id}, returning: true, plain:true}
       ).then((users) => {
@@ -88,10 +83,13 @@ export  default class userDAO
     if(_id.includes('@'))
     {
       return new Promise((resolve, reject) => {
-
         models.users.findOne({where: {email: _id}})
           .then((users) => {
-            console.log(users)
+            if(users==null)
+            {
+              let c=0;
+              resolve(c)
+            }
             resolve(users)
           }, (error) => {
             reject(error);

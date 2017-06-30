@@ -39,7 +39,6 @@ export class TeamsComponent implements OnInit {
   @ViewChild('success') public success:ModalDirective;
   ngOnInit() {
     this.teamAssociate.get().subscribe((response)=>{
-      console.log(response)
       response.forEach((eachRecord)=>{
         let val=eachRecord.userId
         this.allTeamAssociate.push(val)
@@ -47,7 +46,6 @@ export class TeamsComponent implements OnInit {
       this.allTeamAssociate.forEach((everRecord)=>{
       })
       this.userService.get().subscribe((response) => {
-        console.log("//////")
         this.allusersData=response
         this.allusersData.forEach((eachUserRecord)=>{
           let tempFlag =0;
@@ -140,7 +138,9 @@ export class TeamsComponent implements OnInit {
   }
   delete(userId,teamId)
   {
-    alert("in delete")
+    this.teamAssociate.get().subscribe((response)=>{
+      console.log(response)
+    })
   }
 
 }
