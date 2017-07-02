@@ -56,6 +56,7 @@ export class TicketsCategoryComponent implements OnInit{
     this._activatedRoute.params.subscribe(params => {console.log(params)
       this.typeUser(params)
       this.AssignedByUSer=Number(params.id)
+      localStorage.setItem("loginID",this.AssignedByUSer);
     });
 
     this.ticketService.get().subscribe((response) => {

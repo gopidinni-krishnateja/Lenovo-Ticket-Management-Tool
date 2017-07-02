@@ -20,6 +20,7 @@ import { EditTicketComponent } from './edit-ticket/edit-ticket.component';
 import { CreateTeamsComponent } from './create-teams/create-teams.component';
 import { ViewUserComponent } from './view-user/view-user.component';
 import { EditUserComponent } from './edit-user/edit-user.component';
+import { ViewAssociationComponent } from './view-association/view-association.component';
 
 @NgModule( {
   declarations: [
@@ -34,6 +35,7 @@ import { EditUserComponent } from './edit-user/edit-user.component';
     CreateTeamsComponent,
     ViewUserComponent,
     EditUserComponent,
+    ViewAssociationComponent,
 
   ],
   imports: [

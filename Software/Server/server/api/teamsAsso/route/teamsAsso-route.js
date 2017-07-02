@@ -8,7 +8,7 @@ export default class teamsAssoRoutes {
       .post(teamsAssoController.createNew);
 
     router
-      .route('/api/teamsasso/:id')
+      .route('/api/teamsasso/:id/:Id')
       .delete(teamsAssoController.removeById);
   }
 }

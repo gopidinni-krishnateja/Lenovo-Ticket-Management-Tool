@@ -30,17 +30,23 @@ export class TeamsComponent implements OnInit {
   public allTeamAssociate=[]
   public assigned=0
   public associateTeamId
-  public deleteId
+  public loginID
   public newFileterUsers=[]
+  public filterData=[]
   constructor(public users:UsersComponent,public userService:userService,private router: Router,private activatedRoute: ActivatedRoute,public teamService:teamService,
           public teamAssociate:teamAssoService) { }
   @ViewChild('ng') public ngSelect :SelectComponent;
   @ViewChild('assignModal') public assignModal:ModalDirective;
   @ViewChild('success') public success:ModalDirective;
   ngOnInit() {
+
+      this.loginID=localStorage.getItem("loginID");
     this.teamAssociate.get().subscribe((response)=>{
-      response.forEach((eachRecord)=>{
-        let val=eachRecord.userId
+      this.filterData=response
+      console.log(this.filterData)
+
+      this.filterData.forEach((eachRecord)=>{
+        let val=eachRecord.user.id
         this.allTeamAssociate.push(val)
       })
       this.allTeamAssociate.forEach((everRecord)=>{
@@ -102,6 +108,7 @@ export class TeamsComponent implements OnInit {
     console.log(this.value)
     this.associateTeamId=this.value.id
     this.selectedTeamName=this.value.text;
+    console.log(this.associateTeamId)
   }
 
 
@@ -138,9 +145,17 @@ export class TeamsComponent implements OnInit {
   }
   delete(userId,teamId)
   {
-    this.teamAssociate.get().subscribe((response)=>{
+    let params={
+      "userId":userId,
+      "teamId":teamId
+    }
+    this.teamAssociate.deleteAssociation(params).subscribe((response)=>{
       console.log(response)
     })
+  }
+  viewAssociation(id)
+  {
+    this.router.navigate(['teams/' +id ]);
   }
 
 }

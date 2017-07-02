@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
               break;
           }
         }
-        else if(response==null)
+        else if(response==null||response==0)
         {
           this.loginModal.show()
         }

@@ -13,6 +13,7 @@ import {HeaderComponent} from "./header/header.component";
 import {CreateTeamsComponent} from "./create-teams/create-teams.component";
 import {ViewUserComponent} from "./view-user/view-user.component";
 import {EditUserComponent} from "./edit-user/edit-user.component";
+import {ViewAssociationComponent} from "./view-association/view-association.component";
 export const router:Routes=[
 
   {path:'',redirectTo:'home',pathMatch:'full'},
@@ -21,6 +22,7 @@ export const router:Routes=[
   {path:'viewusers/:id',component:ViewUserComponent},
   /*{path:'edit/:id',component:EditTicketComponent},*/
   {path:'teams',component:TeamsComponent},
+  {path:'teams/:id',component:ViewAssociationComponent},
   {path:'users',component:UsersComponent},
   {path:'login',component:LoginComponent},
   {path:'home',component:TicketsCategoryComponent,

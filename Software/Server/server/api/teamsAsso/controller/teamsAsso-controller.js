@@ -29,8 +29,15 @@ export default class teamsAssoController {
   }
 
   static removeById(req, res) {
+    console.log(req.id)
+   let id=(req.id)
+    let Id=(req.Id)
+    console.log("iiiiii");
+   console.log(id);
+   console.log("oooooo");
+   console.log(Id)
     teamsAssoDAO
-      .removeById(req.params.id, res)
+      .removeById(id,Id, res)
       .then(() => res.status(204).end())
       .catch(error => {
         if (error === 404)
@@ -40,11 +47,13 @@ export default class teamsAssoController {
 
   static getAll(req, res) {
     const _query = req.query;
-
     teamsAssoDAO.getAll(_query)
       .then(teamsAssos => {
-        res.status(200).json(teamsAssos);
-      })
+        res.send(teamsAssos);
+      }).catch(error => {
+      if (error === 404)
+        res.status(400).json(error);
+    });
 
 
 

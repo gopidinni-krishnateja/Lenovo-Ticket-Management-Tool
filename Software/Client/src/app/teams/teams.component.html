@@ -3,12 +3,15 @@
     <!-- Form Name -->
     <h1>Teams Registration Form</h1>
     <!-- Text input-->
+    <div >
+    </div>
     <form class="form-horizontal">
       <fieldset>
 
       <div class="form-group">
       <label class="col-md-4 control-label" >Team Name</label>
       <div class="col-md-4">
+
         <ng-select #ng [allowClear]="true"
                    [items]="teamNames"
                    (data)="refreshValue($event)"
@@ -19,10 +22,12 @@
       </div>
         <div >
           <button name="1" class="btn btn-success" (click)="Search()"  >Search</button>
+          <button  type="btn" class="btn btn-primary" (click)=" viewAssociation(loginID)" >Assigned Users</button>
+
         </div>
     </div>
         <div class="form-group">
-          <label class="col-md-4 control-label" for="1">User Type</label>
+          <label class="col-md-4 control-label" >User Type</label>
           <div class="col-md-4">
             <select name="userType" class="form-control" [(ngModel)]="userType">
               <option value="ADMIN">ADMIN</option>
@@ -62,9 +67,6 @@
             <td>
               <button type="button" class="btn btn-default btn-sm" (click)="assign(item.id,selectedTeamName,position)">
                 <span class="glyphicon glyphicon glyphicon-check"></span>
-              </button>
-              <button type="button" class="btn btn-default btn-sm" (click)="delete(item.id,associateTeamId)">
-                <span class="glyphicon glyphicon-remove"></span>
               </button>
               <span *ngIf="assigned==1" class="glyphicon glyphicon-ok"></span>
 

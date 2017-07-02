@@ -32,10 +32,10 @@ export  default class teamsAssoDao
       });
     });
   }
-  static removeById(_id,res) {
+  static removeById(id,Id,res) {
     return new Promise((resolve, reject) => {
       models.teamsAssos
-        .findById(_id)
+        .findOne({where: {$or:[{teamId:id},{userId:Id}]}})
         .then(teamsAssos => {
 
           if (!teamsAssos) {
@@ -43,7 +43,7 @@ export  default class teamsAssoDao
           }
 
           return teamsAssos.destroy()
-            .then(() => {resolve(res.send("Deleted Successfully "+_id)); }, (error) => reject(error));
+            .then(() => {resolve(res.send("Deleted Successfully "+id)); }, (error) => reject(error));
         }, (error) => {
           //logger.error(`Internal error while deleting user: ${error}`);
           reject(error);
@@ -52,15 +52,29 @@ export  default class teamsAssoDao
   }
   static getAll(queryParams,res) {
     return new Promise((resolve, reject) => {
-      console.log(models.teamsAsso);
-      models.teamsAssos
+
+     /* models.teamsAssos
         .findAll({})
         .then(teamsAssos => {
           console.log(teamsAssos)
           resolve(teamsAssos);
         }, (error) => {
           reject(error);
-        });
+        });*/
+      models.teamsAssos.findAll({
+        include: [
+          {model:models.users
+          },
+          {
+            model:models.teams
+          }
+        ]
+      })
+        .then(teamsAssos => {
+          resolve(teamsAssos)
+        }, (error) => {
+          reject(error);
+        })
     });
   }
   static getById(_id) {
