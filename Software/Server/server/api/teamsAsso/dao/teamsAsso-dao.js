@@ -35,7 +35,7 @@ export  default class teamsAssoDao
   static removeById(id,Id,res) {
     return new Promise((resolve, reject) => {
       models.teamsAssos
-        .findOne({where: {$or:[{teamId:id},{userId:Id}]}})
+        .findOne({where: {$and:[{teamId:id},{userId:Id}]}})
         .then(teamsAssos => {
 
           if (!teamsAssos) {

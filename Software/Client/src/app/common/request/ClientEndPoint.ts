@@ -50,6 +50,8 @@ export const ClientEndPoint = (type: string, params: any)=>{
     case deleteUser:
       return environment.API_ROOT + '/api/users/'+params;
     case association:
+      alert(params.userId);
+      alert(params.teamId);
       return environment.API_ROOT + '/api/teamsasso/'+params.userId+'/'+params.teamId;
     default:
 
