@@ -1,10 +1,9 @@
-<div *ngIf="this.fla!=3">
-<div class="row">
+<div *ngIf="_router.url === '/ticketCategory/'+AssignedByUSer">
+  <div class="row">
   <div class="col-md-12 text-center">
     <div class="row">
       <div class="col-md-2">
         <div class="pull-right div-value" >
-          <button class="pull-right" *ngIf="uservalue=='ADMIN'" type="btn" class="btn btn-primary" (click)=" viewUsers(userId)" >Edit Users</button>
         </div>
       </div>
       <div class="col-md-2 type-div">
@@ -26,14 +25,12 @@
                    (typed)="typed($event)"
                    placeholder="No Category selected">
         </ng-select>
-        <button *ngIf="uservalue=='ADMIN'||uservalue=='TECHNICAL'" type="btn" class="btn btn-danger" (click)="DisplayTable(deviceType,selectedValue)" >Search Tickets</button>
 
 
       </div>
       <div class="pull-left div-val" >
-        <button *ngIf="uservalue=='HELPLINE'" type="btn" class="btn btn-primary" (click)="CreateTicket(userId)" >Create Tickets</button>
-        <button *ngIf="uservalue=='ADMIN'" type="btn" class="btn btn-primary" (click)="AddTeam()" >Associate TEAMS</button>
-        <button *ngIf="uservalue=='ADMIN'" type="btn" class="btn btn-primary" (click)=" CreateTeams(userId)" >Create TEAMS</button>
+        <button  type="btn" class="btn btn-danger" (click)="DisplayTable(deviceType,selectedValue)" >Search Tickets</button>
+        <button   type="btn" *ngIf="uservalue=='ADMIN'||uservalue=='HELPLINE'" class="btn btn-primary" (click)=" CreateTicket(userId)" >Create Ticket</button>
 
       </div>
       <div >
@@ -77,24 +74,13 @@
         <td bgcolor="#6495ed" >{{item.ticketDiscription}}</td>
         <td bgcolor="#6495ed">{{item.ticketPriorty}}</td>
         <td bgcolor="#6495ed">{{item.ticketStatus}}</td>
+
         <!--<td><select  *ngIf="uservalue=='ADMIN'"  [(ngModel)]="users" (ngModelChange)="select(users,item.id)" >
           <option *ngFor="let c of filterUsers" [ngValue]="c.id">{{c.name}}</option>
         </select></td>-->
-        <td *ngIf="uservalue=='ADMIN'">
-          <div *ngIf="filterUsers.length > 0">
-          <ng-select #ng [allowClear]="true"
-                     [items]="filterUsers"
-                     (data)="refresh($event)"
-                     (typed)="type($event)"
-                     placeholder="No item selected">
-          </ng-select>
-          </div>
-        </td>
+
 
         <td>
-          <button type="button"  *ngIf="uservalue=='ADMIN'" class="btn btn-default btn-sm" (click)="assignUser(item.id,item.ticketName,item.ticketDiscription,item.ticketStatus,item.ticketPriorty,item.CreatedUser,item.ticketCategory,editUser,editId,item.ticketType,AssgnedToUser)" [disabled]="((AssgnedToUser !=AssgnedToUser) || (AssgnedToUser==null))">
-            <span class="glyphicon glyphicon-pencil"></span>
-          </button>
           <button type="button" class="btn btn-default btn-sm" (click)="view(item.id)">
             <span class="glyphicon glyphicon-eye-open"></span>
           </button>
@@ -103,6 +89,10 @@
           </button>
           <button type="button" class="btn btn-default btn-sm" (click)="delete(item.id,position)">
           <span class="glyphicon glyphicon-remove"></span>
+          </button>
+           <span *ngIf="(uservalue=='ADMIN' && item.AssignedToUser!=0)||(uservalue=='TECHNICAL'&& item.AssignedToUser!=0 )" class="glyphicon glyphicon-ok"></span>
+          <button type="button"  *ngIf="(uservalue=='ADMIN' && item.AssignedToUser===0)||(uservalue=='TECHNICAL'&& item.AssignedToUser===0 )"  class="btn btn-default btn-sm" (click)="assignUser(item.id,item.ticketName,item.ticketDiscription,item.ticketStatus,item.ticketPriorty,item.CreatedUser,item.ticketCategory,editUser,editId,item.ticketType,AssgnedToUser)">
+            <span class="glyphicon glyphicon-hand-left"></span>
           </button>
         </td>
 
@@ -166,9 +156,23 @@
             <td>{{viewRecord.status}}</td>
           </tr>
 
-          <tr>
-
+          <tr  *ngIf="uservalue=='ADMIN'">
+            <td class="text-primary"><i></i> Assign To User</td>
+            <td>
+              <div *ngIf="filterUsers.length > 0">
+                <ng-select #ng [allowClear]="true"
+                           [items]="filterUsers"
+                           (data)="refresh($event)"
+                           (typed)="type($event)"
+                           placeholder="No item selected">
+                </ng-select>
+              </div>
+            </td>
           </tr>
+          <button type="button"  *ngIf="uservalue=='ADMIN'" class="btn btn-default btn-sm" (click)="assignUser(viewRecord.Ticket_No,viewRecord.name,viewRecord.Discription,viewRecord.status,viewRecord.proirty,viewRecord.CreatedUser,viewRecord.category,viewRecord.AssignedByUSer,editId,viewRecord.type,viewRecord.AssgnedToUser)">Save</button>
+          <div class="alert alert-success" *ngIf="temp==1">
+            <strong>Success!</strong> You are successfully Saved
+          </div>
           </tbody>
         </table>
       </div>

@@ -1,10 +1,7 @@
 
-
-<div id="navbar">
-  <nav class="navbar navbar-default navbar-static-top" role="navigation">
+  <nav class="navbar navbar-default navbar-static-top"  role="navigation" style="margin-bottom: 0px">
 
     <div class="navbar-header">
-
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
         <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar"></span>
@@ -15,23 +12,31 @@
     </div>
     <div ></div>
     <div class="collapse navbar-collapse pull-left dev-type">
-      <button ngClass= "dev-type" type="button" *ngIf="flag===1 || flag===null" (click)="clear()" class="btn btn-danger">Log Out</button>
     </div>
-    <div class="collapse navbar-collapse pull-right" id="navbar-collapse-1">
+    <div  class="div" class="collapse navbar-collapse pull-right" id="navbar-collapse-1">
       <ul class="nav navbar-nav">
 
 
         <div></div>
-        <li class="dropdown pull-right"  *ngIf="flag===0"><a href="#" class="dropdown-toggle" data-toggle="dropdown">DropDown <b class="caret"></b></a>
+        <button class = "asText"  *ngIf="flag===0" (click)="login()" > Login</button>
+        <li  class="dropdown pull-right" *ngIf="flag===1 || flag===null"  class="dropdown-toggle" data-toggle="dropdown" style="margin-top: 27px">WelCome  {{loginPerson}} <b class="caret"></b>
           <ul class="dropdown-menu">
-            <li class="kopie"><a href="/users">Sign Up</a></li>
-            <li class="kopie"><a href="/login">login</a></li>
+           <li><button class="divclass" (click)="clear()" > LogOut</button></li>
           </ul>
         </li>
+
       </ul>
 
 
+
+
     </div><!-- /.navbar-collapse -->
-    <h2 >Tickets</h2>
+
+    <h2 class="pull-left">Lenovo Ticket Managemant System</h2>
+
   </nav>
-</div>
+
+  <!--////////////////////////////////////////////////////////////////////////////////////////////////////-->
+
+
+

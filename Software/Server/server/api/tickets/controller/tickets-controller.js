@@ -18,7 +18,6 @@ export default class ticketsController {
 
   static update(req, res) {
     const _reqBody = req.body;
-
     ticketsDAO.update(_reqBody, res)
       .then(tickets => {
         res.status(201)

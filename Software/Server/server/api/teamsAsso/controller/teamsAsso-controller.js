@@ -53,12 +53,30 @@ export default class teamsAssoController {
 
 
   }
-  static getById(req, res) {
+  static getByUserId(req, res) {
     let _id = req.params.id;
     console.log(req.params.id)
-    teamsAssoDao.getById(req.params.id)
+    teamsAssoDAO.getByUserId(req.params.id)
+      .then((teamsAssos)=>{
+      console.log(teamsAssos)
+        res.status(200).json(teamsAssos);
+      })
+  }
+  static getByTeamId(req,res){
+    console.log("in it")
+    console.log(req.params.id)
+    let id=req.params.id;
+    teamsAssoDAO.getByTeamId(id)
       .then((teamsAssos)=>{
         res.status(200).json(teamsAssos);
       })
   }
+  /*static _getId(req,res){
+    console.log("in ID")
+    let id=req.params.id;
+    teamsAssoDAO._getId(id)
+      .then((teamsAssos)=>{
+        res.status(200).json(teamsAssos);
+      })
+  }*/
 }

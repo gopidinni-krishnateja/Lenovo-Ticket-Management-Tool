@@ -10,7 +10,9 @@ import {ModalDirective} from "ngx-bootstrap";
   selector: 'app-users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.css'],
-  providers: [ userService, QueryApi]
+  providers: [ userService, QueryApi],
+  host: {'(reset)': 'onReset()'},
+  exportAs: 'ngForm'
 })
 export class UsersComponent  implements OnInit{
   @ViewChild('conformation') public conformation:ModalDirective;
@@ -19,12 +21,16 @@ export class UsersComponent  implements OnInit{
   public name
   public email
   public flag=0;
+  public temp
   public filteremails=[]
+  public f:'ngForm'
 
   constructor(public userService:userService,private router: Router) { }
   ngOnInit(){
+    this.temp=0;
   }
-  AddUser=({ value }: { value: User })=> {
+
+  AddUser=({ value }: { value: User})=> {
     this.name=value.firstName+" "+value.lastName;
     this.userService.adduser( value ).subscribe((response) => {
         this.validate=Number(response._body)
@@ -34,10 +40,13 @@ export class UsersComponent  implements OnInit{
       }
       else {
         this.conformation.show()
+        window.location.reload()
       }
+
     });
 
   }
+
   login()
   {
     this.router.navigateByUrl('/home');

@@ -17,6 +17,8 @@ import {SelectComponent} from "ng2-select";
   providers: [ userService, QueryApi,ticketService]
 })
 export class TicketsCategoryComponent implements OnInit{
+  _router: Router;
+  public temp=0
   public uservalue;
   public userId;
   public filterUsers=[];
@@ -42,13 +44,13 @@ export class TicketsCategoryComponent implements OnInit{
   public process
   public checkStatusTicket;
   public id
-
+  public assignUserCheck=0
 
   constructor(private model:NgbModal,private router: Router,private userService:userService,public _activatedRoute: ActivatedRoute,
               public ticketService:ticketService, public header:HeaderComponent) {
     this.fla=4;
     this.categoryList=["SpareParts","ManufactureDefect","PartsReplacement","BatteryLeakage","ChargerDefect","WarrentyExtension"];
-
+    this._router=router
   }
   //@ViewChild('ng') public ngSelect :SelectComponent;
   ngOnInit(){
@@ -61,21 +63,25 @@ export class TicketsCategoryComponent implements OnInit{
 
     this.ticketService.get().subscribe((response) => {
       console.log("in ticket category")
-     this.allTickets=response
-   console.log(this.allTickets)
+      this.allTickets=response
+      console.log(this.allTickets)
+      this.filterCatagory=response
+      console.log("the filter values");
+      console.log(this.filterCatagory)
+
     })
     this.userService.get().subscribe((response) => {
 
-     response.forEach((EachRecord)=>{
+      response.forEach((EachRecord)=>{
 
         if(EachRecord.userType==='TECHNICAL' )
         {
           this.users.push(EachRecord.id)
           this.filterUsers.push(
-          {
-            id:EachRecord.id,
-            text:EachRecord.firstName+" "+EachRecord.lastName
-        })
+            {
+              id:EachRecord.id,
+              text:EachRecord.firstName+" "+EachRecord.lastName
+            })
 
         }
       })
@@ -178,7 +184,6 @@ export class TicketsCategoryComponent implements OnInit{
     this.filterCatagory= [];
     this.AllRecords= [];
     this.allTickets.forEach((EachRecord)=>{
-
       if(EachRecord.ticketType===selectedValue && EachRecord.ticketCategory===typeofdevice)
       {
         this.filterCatagory.push(EachRecord);
@@ -186,6 +191,7 @@ export class TicketsCategoryComponent implements OnInit{
       }
 
     })
+
 
   }
   //View Data Method
@@ -204,6 +210,10 @@ export class TicketsCategoryComponent implements OnInit{
               name:EachRecord.ticketName,
               status:EachRecord.ticketStatus,
               type:EachRecord.ticketType,
+              CreatedUser:EachRecord.CreatedUser,
+              AssgnedToUser:EachRecord.AssignedToUser,
+              AssignedByUSer:EachRecord.AssignedByUSer,
+              proirty:EachRecord.ticketPriorty
             }
           this.checkStatusTicket=index;
           bool=false;
@@ -239,9 +249,10 @@ export class TicketsCategoryComponent implements OnInit{
   {
     this.deleteModal.hide()
   }
-    assignUser(id,name,editId,discription,proirty,status,category,type,createduser,typeTicket,AssgnedToUser)
+  assignUser(id,name,editId,discription,proirty,status,category,type,createduser,typeTicket,AssgnedToUser)
   {
 
+    alert("get")
     this.editTicket={"id":id,
       "ticketName":name,
       "ticketDiscription":editId,
@@ -250,16 +261,20 @@ export class TicketsCategoryComponent implements OnInit{
       "ticketStatus":discription,
       "ticketType":typeTicket,
       "CreatedUser":status,
-      "AssignedToUser":AssgnedToUser,
-      "AssignedByUSer":Number(this.AssignedByUSer)
+      "AssignedToUser":Number(this.AssignedByUSer),
+      "AssignedByUSer":AssgnedToUser
     }
+    console.log("----------------------");
+    console.log(this.editTicket)
     this.ticketService.editTicket( this.editTicket ).subscribe((response) => {
       this.Assigned=AssgnedToUser
-      this.assignModal.show()
+      response
 
-  });
-}
+    });
+    this.temp=1
+  }
   closed(){
     this.assignModal.hide()
   }
+
 }

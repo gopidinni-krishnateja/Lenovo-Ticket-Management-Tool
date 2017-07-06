@@ -3,17 +3,14 @@ import models from "../../../../server/models"
 export  default class teamsAssoDao
 {
   static createNew(request,res) {
-
     return new Promise((resolve, reject) => {
       let _reqBody = request;
-      models.teamsAssos.create({
-        teamId: _reqBody.teamId,
-        userId: _reqBody.userId,
-      }).then((teamsAssos) => {
-        resolve(teamsAssos);
-      }, (error) => {
-        reject(error);
-      });
+      models.teams.findById(_reqBody.teamId).then((teams)=>{
+        models.users.findById(_reqBody.userId).then((users)=>{
+          teams.setUsers([users]).then(()=>{
+          })
+        })
+      })
     });
   }
   static update(_reqBody,res) {
@@ -34,20 +31,13 @@ export  default class teamsAssoDao
   }
   static removeById(id,Id,res) {
     return new Promise((resolve, reject) => {
-      models.teamsAssos
-        .findOne({where: {$and:[{teamId:id},{userId:Id}]}})
-        .then(teamsAssos => {
+      models.teams.findById(_reqBody.teamId).then((teams)=>{
+        models.users.findById(_reqBody.userId).then((users)=>{
+          teams.removeUsers([users]).then(()=>{
+          })
+        })
+      })
 
-          if (!teamsAssos) {
-            return reject(404);
-          }
-
-          return teamsAssos.destroy()
-            .then(() => {resolve(res.send("Deleted Successfully "+id)); }, (error) => reject(error));
-        }, (error) => {
-          //logger.error(`Internal error while deleting user: ${error}`);
-          reject(error);
-        });
     });
   }
   static getAll(queryParams,res) {
@@ -77,17 +67,48 @@ export  default class teamsAssoDao
         })
     });
   }
-  static getById(_id) {
+  static getByUserId(_id) {
+    console.log("in the DAO");
+    console.log(_id)
     return new Promise((resolve, reject) => {
-      models.teamAssos.findOne({where: {id: _id}})
-        .then((teamsAssos) => {
-          console.log(teamsAssos)
-          resolve(teamsAssos)
+      models.teamsAssos.findOne({
+        include: [
+          {model:models.users,
+            where:
+              {id: _id},
+          },
+          {
+            model:models.teams
+          }
 
+        ]
+      }) .then(teamsAssos => {
+        console.log(teamsAssos)
+        resolve(teamsAssos)
+      }, (error) => {
+        reject(error);
+      })
+    })
+  }
+  static getByTeamId(_id) {
+    return new Promise((resolve, reject) => {
+      models.teamsAssos.findAll({
+        include: [
+          {model:models.users,
+          },
+          {
+            model:models.teams,
+            where:
+              {id: _id},
+          }
+        ]
+      })
+        .then(teamsAssos => {
+          resolve(teamsAssos)
+        }, (error) => {
+          reject(error);
         })
     })
-
-
 
   }
 }

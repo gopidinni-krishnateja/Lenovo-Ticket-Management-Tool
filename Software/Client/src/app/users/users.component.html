@@ -1,5 +1,5 @@
 
-<form class="form-horizontal" novalidate #f="ngForm">
+<form class="form-horizontal" novalidate #f="ngForm" >
   <fieldset>
 
     <!-- Form Name -->
@@ -89,8 +89,8 @@
     <!-- Button (Double) -->
     <div class="form-group">
       <label class="col-md-4 control-label" for="1"></label>
-      <div class="col-md-8">
-        <button name="1" class="btn btn-success" (click)="AddUser(f);f.reset();"  [disabled]="f.invalid">Save</button>
+      <div class="col-md-8" >
+        <button name="1" class="btn btn-success" (click)="AddUser(f);"   [disabled]="f.invalid">Save</button>
         <button name="2" class="btn btn-danger" >Discard</button>
       </div>
     </div>

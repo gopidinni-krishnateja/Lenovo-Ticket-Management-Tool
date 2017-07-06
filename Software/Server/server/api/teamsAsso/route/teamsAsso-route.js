@@ -10,5 +10,11 @@ export default class teamsAssoRoutes {
     router
       .route('/api/teamsasso/:id/:Id')
       .delete(teamsAssoController.removeById);
+    router
+      .route('/api/teamsasso/:id')
+      .get(teamsAssoController.getByTeamId)
+    router
+      .route('/api/usersasso/:id')
+      .get(teamsAssoController.getByUserId)
   }
 }

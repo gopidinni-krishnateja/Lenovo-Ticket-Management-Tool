@@ -30,7 +30,7 @@ export class CreateTicketComponent implements OnInit {
   {
 
     this._activatedRoute.params.subscribe(params => {console.log(params)
-     this.userdata=params.id
+      this.userdata=params.id
       console.log("->"+params.id)
     });
     this.userService.getUser(this.userdata).subscribe((response) => {
@@ -50,12 +50,12 @@ export class CreateTicketComponent implements OnInit {
     value.AssignedToUser=0;
     this.ticketService.addticket( value ).subscribe((response) => {
       console.log(response)
-      this.router.navigate(['home/'  ,{id:this.userdata}]);
+      this.router.navigate(['home/' +this.userdata ]);
     });
   }
   send()
   {
-    this.router.navigateByUrl('/home');
+    this.router.navigate(['home/' +this.userdata ]);
   }
 
 }

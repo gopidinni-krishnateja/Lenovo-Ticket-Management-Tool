@@ -26,6 +26,5 @@ export class CreateTeamsComponent implements OnInit {
   }
 
 
-    /**/
 
 }

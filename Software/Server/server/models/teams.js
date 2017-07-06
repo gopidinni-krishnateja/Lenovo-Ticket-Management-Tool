@@ -11,10 +11,14 @@ module.exports = function(sequelize, DataTypes) {
       associate: function(models) {
         models.teams.belongsToMany(models.users, {
           through: models.teamsAssos,
-          as: "users",
+          as: "Users",
           foreignKey: {
-            name: "userId",
+            name: "teamId",
             allowNull: false
+          },
+          otherKey:{
+            name:"userId",
+            allowNull:false
           },
           onDelete: "CASCADE"
         });

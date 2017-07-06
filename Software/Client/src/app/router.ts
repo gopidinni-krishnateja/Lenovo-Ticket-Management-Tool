@@ -14,18 +14,23 @@ import {CreateTeamsComponent} from "./create-teams/create-teams.component";
 import {ViewUserComponent} from "./view-user/view-user.component";
 import {EditUserComponent} from "./edit-user/edit-user.component";
 import {ViewAssociationComponent} from "./view-association/view-association.component";
+import {HomeComponent} from "./home/home.component";
+import {MyTicketComponent} from "./my-ticket/my-ticket.component";
 export const router:Routes=[
 
   {path:'',redirectTo:'home',pathMatch:'full'},
+  {path:'home', component:HomeComponent},
+  {path:'home/:id', component:HomeComponent},
   {path:'createticket/:id', component:CreateTicketComponent},
   {path:'createteams/:id', component:CreateTeamsComponent},
   {path:'viewusers/:id',component:ViewUserComponent},
+  {path:'myticket/:id',component:MyTicketComponent},
   /*{path:'edit/:id',component:EditTicketComponent},*/
   {path:'teams',component:TeamsComponent},
   {path:'teams/:id',component:ViewAssociationComponent},
-  {path:'users',component:UsersComponent},
+  {path:'users/:id',component:UsersComponent},
   {path:'login',component:LoginComponent},
-  {path:'home',component:TicketsCategoryComponent,
+  {path:'ticketCategory/:id',component:TicketsCategoryComponent,
     children:[
       {path:':id',component:TicketsCategoryComponent},
       {path:'edit/:id/:Id',component:EditTicketComponent}

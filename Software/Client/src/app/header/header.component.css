@@ -1,3 +1,15 @@
+.asText {
+  background:none;
+  border:none;
+  margin:0;
+  padding:20px;
+}
+.divclass {
+  background:none;
+  border:none;
+  margin:0;
+  padding:0;
+}
 .dev-type{
   margin-top: 6px;
 }
@@ -87,3 +99,4 @@
     text-align: center;
   }
 }
+

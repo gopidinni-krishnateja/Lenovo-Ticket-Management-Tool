@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { LocalStorageModule } from 'angular-2-local-storage';
 import { AppComponent } from './app.component';
-import { TicketsCategoryComponent } from './tickets-category/tickets-category.component';
 import {SelectModule} from 'ng2-select';
 import { CreateTicketComponent } from './create-ticket/create-ticket.component';
 import {DataTableModule} from "angular2-datatable";
@@ -21,6 +20,9 @@ import { CreateTeamsComponent } from './create-teams/create-teams.component';
 import { ViewUserComponent } from './view-user/view-user.component';
 import { EditUserComponent } from './edit-user/edit-user.component';
 import { ViewAssociationComponent } from './view-association/view-association.component';
+import {TicketsCategoryComponent} from "./tickets-category/tickets-category.component";
+import { HomeComponent } from './home/home.component';
+import { MyTicketComponent } from './my-ticket/my-ticket.component';
 
 @NgModule( {
   declarations: [
@@ -36,6 +38,8 @@ import { ViewAssociationComponent } from './view-association/view-association.co
     ViewUserComponent,
     EditUserComponent,
     ViewAssociationComponent,
+    HomeComponent,
+    MyTicketComponent,
 
   ],
   imports: [
