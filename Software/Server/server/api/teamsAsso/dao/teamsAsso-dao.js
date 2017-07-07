@@ -8,13 +8,14 @@ export  default class teamsAssoDao
       let _reqBody = request;
       models.teams.findById(_reqBody.teamId).then((teams)=>{
         models.users.findById(_reqBody.userId).then((users)=>{
-          teams.setUsers([users]).then(()=>{
+          teams.addUsers([users]).then(()=>{
+
           })
         })
       })
     });
   }
-  static update(_reqBody,res) {
+ /* static update(_reqBody,res) {
     return new Promise((resolve, reject) => {
 
       models.teamsAssos.update({
@@ -29,7 +30,7 @@ export  default class teamsAssoDao
         reject(error);
       });
     });
-  }
+  }*/
   static removeById(id,Id,res) {
     return new Promise((resolve, reject) => {
       models.teams.findById(id).then((teams)=>{

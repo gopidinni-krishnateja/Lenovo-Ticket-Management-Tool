@@ -19,6 +19,7 @@ import {MyTicketComponent} from "./my-ticket/my-ticket.component";
 export const router:Routes=[
 
   {path:'',redirectTo:'home',pathMatch:'full'},
+  {path:'users',component:UsersComponent},
   {path:'home', component:HomeComponent},
   {path:'home/:id', component:HomeComponent},
   {path:'createticket/:id', component:CreateTicketComponent},

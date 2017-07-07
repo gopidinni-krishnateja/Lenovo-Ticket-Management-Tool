@@ -67,8 +67,9 @@ export class LoginComponent implements OnInit {
         }
 
       })
-
-
-
+  }
+  admin()
+  {
+    this.router.navigate(['users' ]);
   }
 }

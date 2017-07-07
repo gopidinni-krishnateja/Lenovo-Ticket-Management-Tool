@@ -14,7 +14,6 @@ export  default class teamsDAO
         teamName:_reqBody.teamName,
         teamDiscription:_reqBody.teamDiscription,
       }).then((teams) => {
-        console.log("get")
         res.send(teams)
         resolve(teams);
       }, (error) => {
@@ -41,7 +40,6 @@ export  default class teamsDAO
       models.teams
         .findById(_id)
         .then(teams => {
-
           if (!teams) {
             return reject(404);
           }
@@ -66,7 +64,6 @@ export  default class teamsDAO
   }
   static getById(_id) {
     return new Promise((resolve, reject) => {
-      console.log('getById Dao')
       models.teams.findAll({
         attributes:['id'],
         where:{$or:[{id:_id}]},
