@@ -65,6 +65,14 @@ export class ticketService {
         return Observable.throw(error.json() || 'Server error');
       });
   }
-
+  assignedTicket( params ): Observable<any> {
+    return this.queryApi.doPatch('assignedTicket', params)
+      .map((res: Response) => {
+        return res;
+      })
+      .catch((error: any) => {
+        return Observable.throw(error.json());
+      });
+  }
 
 }

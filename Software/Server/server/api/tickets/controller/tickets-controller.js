@@ -61,5 +61,13 @@ export default class ticketsController {
         res.status(200).json(tickets);
       })
   }
+  static patch(req,res){
+    console.log("in the Controller")
+    ticketsDAO.patchData(req,res)
+      .then((tickets)=>{
+        res.status(201)
+          .json(tickets).send(tickets);
+      })
+  }
 }
 

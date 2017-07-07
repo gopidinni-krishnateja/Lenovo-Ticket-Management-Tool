@@ -10,8 +10,10 @@ export default class ticketsRoutes {
     router
       .route('/api/tickets/:id')
       .delete(ticketsController.removeById)
-    .get(ticketsController.getById)
-      .put(ticketsController.update);
+      .get(ticketsController.getById)
+      .put(ticketsController.update)
+      .patch(ticketsController.patch);
+
 
   }
 }

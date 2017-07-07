@@ -20,6 +20,7 @@ export const editUser='editUser'
 export const deleteUser='deleteUser'
 export const getTeams='getTeams'
 export const AssociatUsers='AssociatUsers'
+export const assignedTicket='assignedTicket'
 export const ClientEndPoint = (type: string, params: any)=>{
 
   switch (type) {
@@ -57,6 +58,10 @@ export const ClientEndPoint = (type: string, params: any)=>{
       return environment.API_ROOT + '/api/teamsasso/'+params;
     case AssociatUsers:
       return environment.API_ROOT + '/api/usersasso/'+params;
+    case assignedTicket:
+      alert("in the END")
+      console.log(params)
+      return environment.API_ROOT + '/api/tickets/' + params.id;
     default:
 
   }

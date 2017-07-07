@@ -19,6 +19,7 @@ exports.config = {
     defaultTimeoutInterval: 30000,
     print: function() {}
   },
+  PUBLIC_METHODS : ['GET', 'PATCH', 'POST', 'DELETE','PUT'],
   onPrepare() {
     require('ts-node').register({
       project: 'e2e/tsconfig.e2e.json'

@@ -91,7 +91,8 @@
           <span class="glyphicon glyphicon-remove"></span>
           </button>
            <span *ngIf="(uservalue=='ADMIN' && item.AssignedToUser!=0)||(uservalue=='TECHNICAL'&& item.AssignedToUser!=0 )" class="glyphicon glyphicon-ok"></span>
-          <button type="button"  *ngIf="(uservalue=='ADMIN' && item.AssignedToUser===0)||(uservalue=='TECHNICAL'&& item.AssignedToUser===0 )"  class="btn btn-default btn-sm" (click)="assignUser(item.id,item.ticketName,item.ticketDiscription,item.ticketStatus,item.ticketPriorty,item.CreatedUser,item.ticketCategory,editUser,editId,item.ticketType,AssgnedToUser)">
+          <span *ngIf="uservalue=='ADMIN' && item.AssignedToUser===0" class="glyphicon glyphicon-hand-left"></span>
+          <button type="button"  *ngIf="uservalue=='TECHNICAL'&& item.AssignedToUser===0"  class="btn btn-default btn-sm" (click)="assignUser(item.id)">
             <span class="glyphicon glyphicon-hand-left"></span>
           </button>
         </td>
@@ -169,7 +170,7 @@
               </div>
             </td>
           </tr>
-          <button type="button"  *ngIf="uservalue=='ADMIN'" class="btn btn-default btn-sm" (click)="assignUser(viewRecord.Ticket_No,viewRecord.name,viewRecord.Discription,viewRecord.status,viewRecord.proirty,viewRecord.CreatedUser,viewRecord.category,viewRecord.AssignedByUSer,editId,viewRecord.type,viewRecord.AssgnedToUser)">Save</button>
+          <button type="button"  *ngIf="uservalue=='ADMIN'" class="btn btn-default btn-sm" (click)="assignUser(viewRecord.Ticket_No)">Save</button>
           <div class="alert alert-success" *ngIf="temp==1">
             <strong>Success!</strong> You are successfully Saved
           </div>

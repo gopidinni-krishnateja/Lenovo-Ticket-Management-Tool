@@ -30,5 +30,9 @@ export class QueryApi {
     url = ClientEndPoint(url, params);
     return this.http.delete(url, params);
   }
+  doPatch(url:string, params: any) {
+    url = ClientEndPoint(url, params);
+    return this.http.patch(url, params );
+  }
 
 }

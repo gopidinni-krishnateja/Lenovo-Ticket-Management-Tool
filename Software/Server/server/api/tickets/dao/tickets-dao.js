@@ -90,9 +90,24 @@ export  default class ticketsDAO
 
           })
       })
-
-
-
   }
+  static patchData(req,res) {
+    console.log("in the DAO")
+    console.log(req.body)
+    console.log(req.body.AssignedByUSer)
+    console.log(req.body.AssignedToUser)
+    //console.log(_reqBody.AssignedByUSer)
+    return new Promise((resolve, reject) => {
+      models.tickets.update({
+        AssignedByUSer:req.body.AssignedByUSer,
+        AssignedToUser:req.body.AssignedToUser,
+      },{where:{id:req.params.id},returning: true, plain:true })
+        .then((updateResponse) => {
+          res.send(updateResponse[1].dataValues);
 
+        }, (error) => {
+          reject(error);
+        });
+    })
+  }
 }

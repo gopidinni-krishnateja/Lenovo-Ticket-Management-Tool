@@ -44,6 +44,7 @@ export class TicketsCategoryComponent implements OnInit{
   public process
   public checkStatusTicket;
   public id
+  public userType
   public assignUserCheck=0
 
   constructor(private model:NgbModal,private router: Router,private userService:userService,public _activatedRoute: ActivatedRoute,
@@ -59,6 +60,7 @@ export class TicketsCategoryComponent implements OnInit{
       this.typeUser(params)
       this.AssignedByUSer=Number(params.id)
       localStorage.setItem("loginID",this.AssignedByUSer);
+      this.userType = localStorage.getItem("userType");
     });
 
     this.ticketService.get().subscribe((response) => {
@@ -249,32 +251,29 @@ export class TicketsCategoryComponent implements OnInit{
   {
     this.deleteModal.hide()
   }
-  assignUser(id,name,editId,discription,proirty,status,category,type,createduser,typeTicket,AssgnedToUser)
+  assignUser(id)
   {
+      if(this.userType==='ADMIN') {
+        this.editTicket = {
+          "id": id,
+          "AssignedByUSer": Number(this.AssignedByUSer),
+          "AssignedToUser": this.AssgnedToUser
+        }
+        this.ticketService.assignedTicket( this.editTicket ).subscribe((response) => {
 
-    alert("get")
-    this.editTicket={"id":id,
-      "ticketName":name,
-      "ticketDiscription":editId,
-      "ticketCategory":category,
-      "ticketPriorty":proirty,
-      "ticketStatus":discription,
-      "ticketType":typeTicket,
-      "CreatedUser":status,
-      "AssignedToUser":Number(this.AssignedByUSer),
-      "AssignedByUSer":AssgnedToUser
-    }
-    console.log("----------------------");
-    console.log(this.editTicket)
-    this.ticketService.editTicket( this.editTicket ).subscribe((response) => {
-      this.Assigned=AssgnedToUser
-      response
+        })
+        this.temp=1
+      }
+        else if(this.userType==='TECHNICAL')
+        {
+          this.editTicket = {
+            "id": id,
+            "AssignedByUSer": Number(this.AssignedByUSer),
+            "AssignedToUser": Number(this.AssignedByUSer)
+          }
+          this.ticketService.assignedTicket( this.editTicket ).subscribe((response) => {
 
-    });
-    this.temp=1
-  }
-  closed(){
-    this.assignModal.hide()
-  }
-
+          })
+        }
+      }
 }

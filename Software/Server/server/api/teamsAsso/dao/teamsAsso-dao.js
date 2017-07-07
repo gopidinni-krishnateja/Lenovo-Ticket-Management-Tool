@@ -4,6 +4,7 @@ export  default class teamsAssoDao
 {
   static createNew(request,res) {
     return new Promise((resolve, reject) => {
+      console.log("int id DAO")
       let _reqBody = request;
       models.teams.findById(_reqBody.teamId).then((teams)=>{
         models.users.findById(_reqBody.userId).then((users)=>{
@@ -31,9 +32,10 @@ export  default class teamsAssoDao
   }
   static removeById(id,Id,res) {
     return new Promise((resolve, reject) => {
-      models.teams.findById(_reqBody.teamId).then((teams)=>{
-        models.users.findById(_reqBody.userId).then((users)=>{
+      models.teams.findById(id).then((teams)=>{
+        models.users.findById(Id).then((users)=>{
           teams.removeUsers([users]).then(()=>{
+
           })
         })
       })

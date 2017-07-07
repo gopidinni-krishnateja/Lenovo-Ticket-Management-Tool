@@ -10,10 +10,10 @@
       <div class="col-md-4">
         <input id="1" name="1" type="text"  class="form-control input-md"  name="firstName"  ngModel #firstName="ngModel" minlength="6" required placeholder="First Name">
         <div *ngIf="firstName.errors?.required && firstName.touched" class="error">
-          First Name is required
+          <span class="alert-danger"> First Name is required</span>
         </div>
         <div *ngIf="firstName.errors?.minlength && firstName.touched" class="error">
-          Minimum of 6 characters
+          <span class="alert-danger">Minimum of 6 characters</span>
         </div>
       </div>
     </div>
@@ -24,10 +24,10 @@
       <div class="col-md-4">
         <input id="2" name="2" type="text"  class="form-control input-md"  name="lastName"  ngModel #lastName="ngModel" minlength="6" required placeholder="Last Name">
         <div *ngIf="lastName.errors?.required && lastName.touched" class="error">
-          Last Name is required
+          <span class="alert-danger"> Last Name is required</span>
         </div>
         <div *ngIf="lastName.errors?.minlength && lastName.touched" class="error">
-          Minimum of 6 characters
+          <span class="alert-danger"> Minimum of 6 characters</span>
         </div>
       </div>
     </div>
@@ -38,7 +38,7 @@
       <div class="col-md-4">
         <input id="3" name="3" type="date" placeholder="" class="form-control input-md"  name="dob"  ngModel #dob="ngModel" minlength="6" required placeholder="Last Name">
         <div *ngIf="dob.errors?.required && dob.touched" class="error">
-          Date of Birth is required
+          <span class="alert-danger"> Date of Birth is required</span>
         </div>
       </div>
     </div>
@@ -46,13 +46,13 @@
     <div class="form-group">
       <label class="col-md-4 control-label" for="3">Email Id</label>
       <div class="col-md-4">
-        <input  name="3" type="email" placeholder="" class="form-control input-md"  name="email"  ngModel #email="ngModel" minlength="6" required placeholder="Email Id">
-        <span *ngIf="flag==1">Email Id is already taken!!!!</span>
-        <div *ngIf="email.errors?.required && email.touched" class="error">
-          EmailId is required
+        <input  name="3" type="email" placeholder="" class="form-control input-md"  name="email"  ngModel #email="ngModel" minlength="6" required placeholder="Email Id" #emailField="ngModel">
+        <span  class=" alert-danger" *ngIf="flag==1">Email Id is already taken!!!!</span>
+        <div  *ngIf="email.errors?.required && email.touched" class="error">
+          <div><span class="alert-danger"> Email is Requeried</span></div>
         </div>
         <div *ngIf="email.errors?.minlength && email.touched" class="error">
-          Minimum of 6 characters
+          <div><span class="alert-danger"> Minimum 6 charected length</span></div>
         </div>
       </div>
     </div>
@@ -63,10 +63,10 @@
       <div class="col-md-4">
         <input id="5" name="5" type="password" placeholder="" class="form-control input-md"  name="password"  ngModel #password="ngModel" minlength="6" required placeholder="password">
         <div *ngIf="password.errors?.required && password.touched" class="error">
-          Password Name is required
+          <span class="alert-danger">Password Name is required</span>
         </div>
         <div *ngIf="password.errors?.minlength && password.touched" class="error">
-          Minimum of 6 characters
+          <span class="alert-danger"> Minimum of 6 characters</span>
         </div>
       </div>
     </div>
@@ -80,7 +80,7 @@
           <option value="TECHNICAL">TECHNICAL</option>
         </select>
         <div *ngIf="type.errors?.required" class="error">
-          Type is required
+          <span class="alert-danger">Type is required</span>
         </div>
       </div>
     </div>
@@ -90,7 +90,7 @@
     <div class="form-group">
       <label class="col-md-4 control-label" for="1"></label>
       <div class="col-md-8" >
-        <button name="1" class="btn btn-success" (click)="AddUser(f);"   [disabled]="f.invalid">Save</button>
+        <button name="1" class="btn btn-success" (click)="AddUser(f);"   [disabled]="f.invalid ">Save</button>
         <button name="2" class="btn btn-danger" >Discard</button>
       </div>
     </div>
